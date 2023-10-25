@@ -1,0 +1,13 @@
+.header {
+  height: 85vh;
+  background-size: cover;
+  background-position: center center;
+}
+.header-bg {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url(src/assets/image/hero02.jpg);
+}
