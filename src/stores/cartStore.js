@@ -3,7 +3,7 @@ import productStore from '@/stores/productStore.js'
 import statusStore from '@/stores/statusStore.js'
 import axios from 'axios'
 
-const status = statusStore()
+// const status = statusStore()
 
 export default defineStore('cartStore', {
   state: () => ({
@@ -17,7 +17,7 @@ export default defineStore('cartStore', {
         qty
       }
       axios.post(url, { data: cart }).then((res) => {
-        status.pushMessage({ title: '加入購物車' })
+        // status.pushMessage({ title: '加入購物車' })
         this.getCart()
       })
     },

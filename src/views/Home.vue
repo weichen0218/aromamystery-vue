@@ -17,8 +17,8 @@
         <a class="navbar-brand text-tertiary align-bottom" href="#">芳香秘境</a>
       </div>
       <div class="order-lg-1">
-        <a class="nav-link d-inline mx-1" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"
-          ><i class="bi bi-cart2 cartIcon">
+        <a class="navbar-brand d-inline mx-1" href="" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+          <i class="bi bi-cart2 cartIcon">
             <span v-if="cart.carts.length" class="cartBadge">
               <span class="cartCount">{{ cart.carts.length }}</span>
             </span>
