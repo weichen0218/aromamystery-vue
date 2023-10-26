@@ -216,27 +216,6 @@ export default {
       ]
     }
   },
-  // methods: {
-  //   showSuccessModal() {
-  //     this.$refs.successModal.show()
-  //   },
-  //   hideSuccessModal() {
-  //     this.$refs.successModal.hide()
-  //   },
-  //   showCartModal() {
-  //     this.$refs.cartModal.show()
-  //   },
-  //   hideCartModal() {
-  //     this.$refs.cartModal.hide()
-  //   },
-  //   showLoginModal() {
-  //     this.$refs.loginModal.show()
-  //   },
-  //   hideLoginModal() {
-  //     this.$refs.loginModal.hide()
-  //   }
-
-  // },
   computed: {
     ...mapState(productStore, ['sortProducts']),
     ...mapState(cartStore, ['cart']),

@@ -114,7 +114,7 @@
       </div>
       <div class="col-md-6 p-5 bg-white min-vh-50">
         <h2 class="fs-4 mb-4">填寫訂購資訊</h2>
-        <Form v-slot="{ errors, validate }" @submit="createOrder" novalidate class="needs-validation" id="checkout">
+        <Form v-slot="{ errors, validate }" @submit="createOrder" novalidate class="needs-validation" id="order">
           <ul class="list-unstyled">
             <li class="mb-3">
               <label for="email" class="form-label"><span class="text-danger">*</span> Email </label>

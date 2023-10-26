@@ -1,5 +1,5 @@
 <template>
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel" ref="offcanvas">
     <div class="offcanvas-header border-bottom">
       <h5 class="offcanvas-title" id="cartOffcanvasLabel">購物車</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -39,7 +39,7 @@
         <div class="cart-controls d-flex justify-content-between">
           <button @click.prevent="removeAllCart()" class="btn btn-primary text-white clearCart">清空購物車</button>
           <!-- data-bs-toggle="modal" data-bs-target="#loginModal" -->
-          <router-link to="/checkout" class="btn btn-primary text-white">前往結帳</router-link>
+          <button @click="checkout" class="btn btn-primary text-white">前往結帳</button>
         </div>
         <!-- {{ getCartList.cartList }} -->
       </div>
@@ -55,18 +55,33 @@ input[type='number'] {
 }
 </style>
 <script>
+import Offcanvas from 'bootstrap/js/dist/offcanvas'
 import cartStore from '@/stores/cartStore.js'
-
 import { mapState, mapActions } from 'pinia'
 export default {
+  data() {
+    return {
+      offcanvas: {},
+      toggleCart: false
+    }
+  },
   computed: {
     ...mapState(cartStore, ['cart'])
   },
   methods: {
-    ...mapActions(cartStore, ['getCart', 'addToCart', 'updateCart', 'removeFromCart', 'removeAllCart'])
+    ...mapActions(cartStore, ['getCart', 'addToCart', 'updateCart', 'removeFromCart', 'removeAllCart']),
+    checkout() {
+      // if (this.offcanvas.hide()) {
+      //   console.log('hide success')
+      //   console.log(this.offcanvas)
+      // }
+      // this.offcanvas.toggle()
+      console.log(this.offcanvas)
+      // this.$router.push('/checkout')
+    }
   },
-  created() {
-    // this.getCart()
+  mounted() {
+    // this.offcanvas = new Offcanvas(this.$refs.offcanvas)
   }
 }
 </script>
