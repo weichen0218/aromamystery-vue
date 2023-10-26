@@ -95,7 +95,7 @@ export default {
       // resetForm()
     },
     signIn() {
-      const api = `${import.meta.env.VITE_APP_API}admin/signin`
+      const api = `${import.meta.env.VITE_APP_API}/admin/signin`
       this.$http.post(api, this.user).then((res) => {
         if (res.data.success) {
           const { token, expired } = res.data

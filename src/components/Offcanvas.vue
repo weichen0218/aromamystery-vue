@@ -1,32 +1,30 @@
 <template>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-    <div class="offcanvas-header">
+    <div class="offcanvas-header border-bottom">
       <h5 class="offcanvas-title" id="cartOffcanvasLabel">購物車</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <div v-if="!getCartList.cartList.length" class="text-center">購物車目前沒有商品！</div>
+      <div v-if="!cart.carts.length" class="text-center">購物車目前沒有商品！</div>
       <!-- 購物車內容 -->
       <div v-else>
         <table class="table table-borderless align-middle text-center">
           <thead class="thead">
             <tr>
-              <th>商品名稱</th>
+              <!-- <th>商品名稱</th>
               <th>數量</th>
               <th>小計</th>
-              <th>移除</th>
+              <th>移除</th> -->
             </tr>
           </thead>
           <tbody class="tbody">
-            <tr v-for="item in getCartList.cartList" :key="item.id">
-              <!-- <td width="100"><img class="table-img" :src="item.product.image" alt="" /></td> -->
-              <td class="text-primary">{{ item.product.title }}</td>
-              <td>
-                <select :value="item.qty" @change="(event) => setCartQty(item.productId, event)" class="form-select">
-                  <option :value="i" v-for="i in 20" :key="i">{{ i }}</option>
-                </select>
+            <tr v-for="item in cart.carts" :key="item.id">
+              <td width="80"><img class="table-img" :src="item.product.imageUrl" alt="" /></td>
+              <td class="text-primary">
+                {{ item.product.title }} <span class="d-block"> NT$ {{ item.product.origin_price }}</span>
               </td>
-              <td>{{ item.subtotal }}</td>
+              <td><input type="number" v-model.number="item.qty" @blur="updateCart(item)" min="1" max="10" class="form-control" inputmode="numeric" /></td>
+
               <td>
                 <button @click.prevent="removeFromCart(item.id)" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
               </td>
@@ -34,7 +32,7 @@
           </tbody>
           <tfoot>
             <tr class="border-top-1">
-              <td colspan="5" class="text-end totalPrice">總金額 NT$ {{ getCartList.totalPrice }}</td>
+              <td colspan="5" class="text-end totalPrice">總金額 NT$ {{ cart.final_total }}</td>
             </tr>
           </tfoot>
         </table>
@@ -52,18 +50,23 @@
 /* .bi-trash:before {
   content: '\f2ed';
 } */
+input[type='number'] {
+  writing-mode: horizontal-tb;
+}
 </style>
 <script>
 import cartStore from '@/stores/cartStore.js'
-import modalStore from '@/stores/modalStore.js'
+
 import { mapState, mapActions } from 'pinia'
 export default {
   computed: {
-    ...mapState(cartStore, ['getCartList'])
+    ...mapState(cartStore, ['cart'])
   },
   methods: {
-    ...mapActions(cartStore, ['removeFromCart', 'removeAllCart', 'setCartQty']),
-    ...mapActions(modalStore, ['openModal'])
+    ...mapActions(cartStore, ['getCart', 'addToCart', 'updateCart', 'removeFromCart', 'removeAllCart'])
+  },
+  created() {
+    // this.getCart()
   }
 }
 </script>

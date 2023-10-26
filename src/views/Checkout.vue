@@ -222,7 +222,7 @@ export default {
       return phoneRegex.test(value) ? true : '請輸入正確的手機號碼'
     },
     createOrder() {
-      const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/order`
+      const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/order`
       const order = this.form
       this.$http.post(api, { data: order }).then((res) => {
         console.log(res)

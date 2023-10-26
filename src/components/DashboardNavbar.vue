@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     logout() {
-      const api = `${import.meta.env.VITE_APP_API}logout`
+      const api = `${import.meta.env.VITE_APP_API}/logout`
       this.$http.post(api).then((res) => {
         if (res.data.success) {
           this.$router.push('/login')

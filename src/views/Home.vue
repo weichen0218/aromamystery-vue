@@ -19,8 +19,8 @@
       <div class="order-lg-1">
         <a class="nav-link d-inline mx-1" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"
           ><i class="bi bi-cart2 cartIcon">
-            <span v-if="cart.length" class="cartBadge">
-              <span class="cartCount">{{ cart.length }}</span>
+            <span v-if="cart.carts.length" class="cartBadge">
+              <span class="cartCount">{{ cart.carts.length }}</span>
             </span>
           </i>
         </a>
@@ -117,15 +117,15 @@
     <h2 class="text-center mb-4">方案費用</h2>
     <ul class="row row-cols-1 row-cols-lg-3 g-3 g-lg-4 list-unstyled">
       <price-card
-        v-for="(plan, index) in productList"
+        v-for="(product, index) in sortProducts"
         :key="index"
-        :id="plan.id"
-        :title="plan.title"
-        :header-class="plan.headerClass"
-        :image="plan.image"
-        :image-alt="plan.imageAlt"
-        :price="plan.price"
-        :features="plan.features"
+        :id="product.id"
+        :title="product.title"
+        :header-class="headerClass[index]"
+        :image="product.imageUrl"
+        :image-alt="product.title"
+        :price="product.price"
+        :features="product.content"
       />
     </ul>
   </section>
@@ -157,7 +157,6 @@
 <script>
 // import Nav from '@/components/Navbar.vue'
 import Header from '@/components/Header.vue'
-// import Button from '@/components/Button.vue'
 import SuccessModal from '@/components/SuccessModal.vue'
 import CartModal from '@/components/CartModal.vue'
 import LoginModal from '@/components/LoginModal.vue'
@@ -171,11 +170,13 @@ import troubleCard from '@/components/troubleCard.vue'
 
 import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
+import statusStore from '@/stores/statusStore.js'
 import { mapState, mapActions } from 'pinia'
 export default {
   data() {
     return {
       showBtn: false,
+      headerClass: ['text-primary', 'bg-primary text-white', 'text-primary'],
       heroBackground: 'linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3)), url("src/assets/image/hero02.jpg")',
       troubleBackground: 'url("src/assets/image/bg_paper.png")',
       contacts: [
@@ -215,31 +216,35 @@ export default {
       ]
     }
   },
-  methods: {
-    // showSuccessModal() {
-    //   this.$refs.successModal.show()
-    // },
-    // hideSuccessModal() {
-    //   this.$refs.successModal.hide()
-    // },
-    // showCartModal() {
-    //   this.$refs.cartModal.show()
-    // },
-    // hideCartModal() {
-    //   this.$refs.cartModal.hide()
-    // },
-    // showLoginModal() {
-    //   this.$refs.loginModal.show()
-    // },
-    // hideLoginModal() {
-    //   this.$refs.loginModal.hide()
-    // }
-  },
+  // methods: {
+  //   showSuccessModal() {
+  //     this.$refs.successModal.show()
+  //   },
+  //   hideSuccessModal() {
+  //     this.$refs.successModal.hide()
+  //   },
+  //   showCartModal() {
+  //     this.$refs.cartModal.show()
+  //   },
+  //   hideCartModal() {
+  //     this.$refs.cartModal.hide()
+  //   },
+  //   showLoginModal() {
+  //     this.$refs.loginModal.show()
+  //   },
+  //   hideLoginModal() {
+  //     this.$refs.loginModal.hide()
+  //   }
+
+  // },
   computed: {
-    ...mapState(productStore, ['productList']),
-    ...mapState(cartStore, ['cart'])
+    ...mapState(productStore, ['sortProducts']),
+    ...mapState(cartStore, ['cart']),
+    ...mapState(statusStore, ['isLoading'])
   },
   methods: {
+    ...mapActions(productStore, ['GetAllProducts']),
+    ...mapActions(cartStore, ['getCart']),
     scrollToSection(sectionId) {
       const element = document.getElementById(sectionId)
       if (element) {
@@ -249,6 +254,10 @@ export default {
     handleScroll() {
       this.showBtn = window.scrollY >= 40
     }
+  },
+  created() {
+    this.GetAllProducts()
+    this.getCart()
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)

@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     deleteItem() {
-      const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product/-NhVibNCoNqdEgPs1-KO`
+      const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/admin/product/-NhVibNCoNqdEgPs1-KO`
       let httpMethod = 'delete'
       this.$http[httpMethod](api, { data: this.product }).then((res) => {
         if (res.data.success) {
@@ -67,7 +67,7 @@ export default {
       })
     },
     addItem() {
-      const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product`
+      const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/admin/product`
       let httpMethod = 'post'
       this.$http[httpMethod](api, { data: this.data }).then((res) => {
         if (res.data.success) {
@@ -78,7 +78,7 @@ export default {
       })
     },
     getProducts() {
-      const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/products`
+      const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/admin/products`
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           console.log(res.data)
