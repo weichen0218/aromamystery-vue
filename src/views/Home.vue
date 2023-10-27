@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="isLoading"></Loading>
   <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
     <div class="container">
       <button
@@ -17,9 +18,9 @@
         <a class="navbar-brand text-tertiary align-bottom" href="#">芳香秘境</a>
       </div>
       <div class="order-lg-1">
-        <a class="navbar-brand d-inline mx-1" href="" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+        <a class="navbar-brand d-inline mx-1" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
           <i class="bi bi-cart2 cartIcon">
-            <span v-if="cart.carts.length" class="cartBadge">
+            <span v-if="cart.carts" class="cartBadge">
               <span class="cartCount">{{ cart.carts.length }}</span>
             </span>
           </i>

@@ -15,24 +15,14 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal'
+import modalMixins from '@/mixins/modalMixins'
 
 export default {
   data() {
     return {
-      modal: null
+      modal: ''
     }
   },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal)
-  },
-  methods: {
-    show() {
-      this.modal.show()
-    },
-    hide() {
-      this.modal.hide()
-    }
-  }
+  mixins: [modalMixins]
 }
 </script>

@@ -14,15 +14,27 @@
         <li class="list-group-item text-quaternary" v-for="(feature, index) in featureString" :key="index"><i class="bi bi-check-circle-fill text-primary me-2"></i>{{ feature }}</li>
       </ul>
       <div class="card-body d-flex">
-        <button @click="addToCart(id)" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 align-self-end">選擇方案</button>
+        <button @click="addToCart(id)" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 align-self-end">
+          選擇方案
+          <div v-if="id === cartLoadingItem" class="spinner-grow spinner-grow-xs text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+        <!-- :disabled="id === cartLoadingItem"  -->
       </div>
     </div>
   </li>
 </template>
-
+<style>
+.spinner-grow-xs {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+</style>
 <script>
 import cartStore from '@/stores/cartStore.js'
-import { mapActions } from 'pinia'
+import statusStore from '@/stores/statusStore.js'
+import { mapState, mapActions } from 'pinia'
 export default {
   props: {
     id: {
@@ -53,6 +65,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  computed: {
+    ...mapState(statusStore, ['cartLoadingItem'])
   },
   methods: {
     ...mapActions(cartStore, ['addToCart'])

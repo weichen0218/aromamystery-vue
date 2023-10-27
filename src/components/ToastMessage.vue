@@ -6,7 +6,7 @@
 <script>
 import { storeToRefs } from 'pinia'
 import Toast from '@/components/Toast.vue'
-import statusStore from '../stores/statusStore'
+import statusStore from '@/stores/statusStore'
 
 export default {
   components: {

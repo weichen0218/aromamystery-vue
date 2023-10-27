@@ -23,7 +23,9 @@
               <td class="text-primary">
                 {{ item.product.title }} <span class="d-block"> NT$ {{ item.product.origin_price }}</span>
               </td>
-              <td><input type="number" v-model.number="item.qty" @blur="updateCart(item)" min="1" max="10" class="form-control" inputmode="numeric" /></td>
+              <td>
+                <input type="number" :disabled="item.id === cartLoadingItem" v-model.number="item.qty" @blur="updateCart(item)" min="1" max="30" class="form-control" inputmode="numeric" />
+              </td>
 
               <td>
                 <button @click.prevent="removeFromCart(item.id)" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
@@ -57,6 +59,7 @@ input[type='number'] {
 <script>
 import Offcanvas from 'bootstrap/js/dist/offcanvas'
 import cartStore from '@/stores/cartStore.js'
+import statusStore from '../stores/statusStore'
 import { mapState, mapActions } from 'pinia'
 export default {
   data() {
@@ -66,7 +69,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(cartStore, ['cart'])
+    ...mapState(cartStore, ['cart']),
+    ...mapState(statusStore, ['isLoading', 'cartLoadingItem'])
   },
   methods: {
     ...mapActions(cartStore, ['getCart', 'addToCart', 'updateCart', 'removeFromCart', 'removeAllCart']),
@@ -83,6 +87,7 @@ export default {
   mounted() {
     // this.offcanvas = new Offcanvas(this.$refs.offcanvas)
     // this.offcanvas.show()
+    // this.offcanvas.hide()
   }
 }
 </script>
