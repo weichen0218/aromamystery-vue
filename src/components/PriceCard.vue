@@ -14,13 +14,12 @@
         <li class="list-group-item text-quaternary" v-for="(feature, index) in featureString" :key="index"><i class="bi bi-check-circle-fill text-primary me-2"></i>{{ feature }}</li>
       </ul>
       <div class="card-body d-flex">
-        <button @click="addToCart(id)" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 align-self-end">
+        <button @click="addToCart(id)" :disabled="id === cartLoadingItem" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 align-self-end">
           選擇方案
           <div v-if="id === cartLoadingItem" class="spinner-grow spinner-grow-xs text-light" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </button>
-        <!-- :disabled="id === cartLoadingItem"  -->
       </div>
     </div>
   </li>
