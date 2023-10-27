@@ -73,9 +73,9 @@
 
   <div>
     <SuccessModal ref="successModal" />
-    <CartModal ref="cartModal" />
     <LoginModal ref="loginModal" />
     <Offcanvas ref="offcanvas" />
+    <ToastMessage />
   </div>
 
   <section id="info">
@@ -158,7 +158,7 @@
 // import Nav from '@/components/Navbar.vue'
 import Header from '@/components/Header.vue'
 import SuccessModal from '@/components/SuccessModal.vue'
-import CartModal from '@/components/CartModal.vue'
+
 import LoginModal from '@/components/LoginModal.vue'
 import Offcanvas from '@/components/Offcanvas.vue'
 import Info from '@/components/Info.vue'
@@ -167,6 +167,7 @@ import QAList from '@/components/QAList.vue'
 import PriceCard from '@/components/PriceCard.vue'
 import ContactForm from '@/components/ContactForm.vue'
 import troubleCard from '@/components/troubleCard.vue'
+import ToastMessage from '@/components/ToastMessage.vue'
 
 import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
@@ -249,9 +250,10 @@ export default {
     Header,
     // Button,
     SuccessModal,
-    CartModal,
+
     LoginModal,
     Offcanvas,
+    ToastMessage,
     Info,
     'trouble-card': troubleCard,
     share: Share,

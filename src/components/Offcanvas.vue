@@ -77,11 +77,12 @@ export default {
       // }
       // this.offcanvas.toggle()
       console.log(this.offcanvas)
-      // this.$router.push('/checkout')
+      this.$router.push('/checkout')
     }
   },
   mounted() {
     // this.offcanvas = new Offcanvas(this.$refs.offcanvas)
+    // this.offcanvas.show()
   }
 }
 </script>

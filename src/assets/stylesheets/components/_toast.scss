@@ -1,0 +1,15 @@
+.toast {
+  position: fixed;
+  top: 65px;
+  right: 0;
+}
+.toast-success {
+  background: $green-100;
+  border-color: $green-200;
+  color: $green;
+}
+.toast-error {
+  background: $red-100;
+  border-color: $red-200;
+  color: $danger;
+}

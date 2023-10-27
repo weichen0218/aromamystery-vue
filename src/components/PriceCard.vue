@@ -14,7 +14,7 @@
         <li class="list-group-item text-quaternary" v-for="(feature, index) in featureString" :key="index"><i class="bi bi-check-circle-fill text-primary me-2"></i>{{ feature }}</li>
       </ul>
       <div class="card-body d-flex">
-        <button @click="addToCart(id)" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 align-self-end" data-bs-toggle="modal" data-bs-target="#cartModal">選擇方案</button>
+        <button @click="addToCart(id)" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 align-self-end">選擇方案</button>
       </div>
     </div>
   </li>

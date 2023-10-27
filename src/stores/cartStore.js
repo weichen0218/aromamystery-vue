@@ -3,11 +3,13 @@ import productStore from '@/stores/productStore.js'
 import statusStore from '@/stores/statusStore.js'
 import axios from 'axios'
 
-// const status = statusStore()
+const status = statusStore()
 
 export default defineStore('cartStore', {
   state: () => ({
-    cart: {}
+    cart: {
+      carts: []
+    }
   }),
   actions: {
     addToCart(id, qty = 1) {
@@ -17,8 +19,8 @@ export default defineStore('cartStore', {
         qty
       }
       axios.post(url, { data: cart }).then((res) => {
-        // status.pushMessage({ title: '加入購物車' })
         this.getCart()
+        status.pushMessage({ style: 'success', title: '已加入購物車', content: '成功加入購物車' })
       })
     },
     getCart() {
@@ -41,18 +43,21 @@ export default defineStore('cartStore', {
       }
       axios.put(url, { data: cart }).then((res) => {
         this.getCart()
+        status.pushMessage({ style: 'success', title: '已更新購物車', content: '成功更新購物車' })
       })
     },
     removeFromCart(id) {
       const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/cart/${id}`
       axios.delete(url).then((res) => {
         this.getCart()
+        status.pushMessage({ style: 'success', title: '已移除商品', content: '成功移除商品' })
       })
     },
     removeAllCart() {
       const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/carts`
       axios.delete(url).then((res) => {
         this.getCart()
+        status.pushMessage({ style: 'success', title: '已清空購物車', content: '成功清空購物車' })
       })
     }
     // setCartQty(productId, event) {

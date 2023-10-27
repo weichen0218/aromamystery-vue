@@ -84,33 +84,46 @@
         <li class="col-4"><small class="ls-3 d-block">STEP3</small><span>完成訂單</span></li>
       </ul>
     </div>
-    <div class="row g-0 justify-content-between">
+    <div class="min-vh-50 d-flex flex-column align-items-center justify-content-center text-secondary" v-if="!cart.total">
+      <span class="material-icons mb-2 fs-2"> announcement </span>
+      <p class="fs-7" style="letter-spacing: 2px">購物車內沒有商品</p>
+      <router-link class="btn btn-primary py-2 px-4" to="/products?category=all&page=1">挑選商品</router-link>
+    </div>
+    <div class="row g-0 justify-content-between" v-else>
       <div class="col-md-6 col-lg-5 px-3 m-0">
-        <h2 class="fs-4 d-flex mb-5">確認訂單內容 <button class="btn btn-sm btn-outline-primary ms-2" type="button">修改內容</button></h2>
+        <h2 class="fs-4 d-flex mb-5">
+          確認訂單內容
+          <!-- <button class="btn btn-sm btn-outline-primary ms-2" type="button" @click="$emitter.emit('toggle-cart', true)">修改內容</button> -->
+        </h2>
         <ul class="list-unstyled">
-          <li class="d-flex align-items-center mb-4">
-            <div
-              class="cart-img"
-              style="
-                background-image: url('https://storage.googleapis.com/vue-course-api.appspot.com/panya/1627476685625.jpeg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&amp;Expires=1742169600&amp;Signature=OLLvHPrRYnoYfHoOXnCLFX4PKeOfdLx3nZrVc4ZLSyTuwHscl0aEaBVkgMNHPjAbC97QSGuvUt4Pg4SXlGn4V5CAZ2ZwSer7y9evXgkUI0EIpIDmx2gBCSZvTzH2YwUl%2FGYqPbD40CMaq1JyGTgurQKcXPFXmHcIPZsqpLqo%2B2gX9sXQXjq8bVaMLcouVWaUK75ZO4DiXrAH%2BuL5xWkrBNgj5sN40rgBWU82zpdCzX8yXQeZq%2Bs7dbll3IAEe%2BvpgLb6SovHzzV7OR2pByz%2Fi86yx%2FfAT3T1ScoerMcWxubrdgMHjSlsqA0cn%2BLMWMqGolJNuqyusCO1zNHwlChVhw%3D%3D');
-              "
-            ></div>
+          <li class="d-flex align-items-center mb-4" v-for="item in cart.carts" :key="item">
+            <div class="cart-img" :style="{ 'background-image': `url(${item.product.imageUrl})` }"></div>
             <div class="cart-cont col px-3 d-flex">
               <div class="col-7 pe-2">
-                <p class="m-0">歐式麵包</p>
-                <small>數量：1</small>
+                <p class="m-0">{{ item.product.title }}</p>
+                <small>數量：{{ item.qty }}</small>
               </div>
-              <div class="col-5 ls-1 text-end">$ 120 NTD</div>
+              <div class="col-5 ls-1 text-end">$ {{ item.product.price }} NTD</div>
             </div>
           </li>
         </ul>
         <div class="input-group mb-4">
-          <input type="text" class="form-control p-2" placeholder="輸入優惠碼" /><button type="button" class="btn btn-sm btn-primary px-3">
+          <input type="text" class="form-control panya-input p-2" placeholder="已套用優惠券" disabled v-if="isDiscount" />
+          <input type="text" class="form-control panya-input p-2" placeholder="輸入優惠碼" v-model="code" v-else />
+          <button type="button" class="btn btn-sm btn-primary px-3" :disabled="isDiscount" @click="useCoupon">
             套用優惠券
-            <div class="loading bounceball d-none fade"><span></span><span></span><span></span></div>
+            <Spinner :spin-item="code" />
           </button>
         </div>
-        <p class="text-primary">總計金額：$ <span class="fs-4">120</span> NTD</p>
+        <p class="text-primary" v-if="!isDiscount">
+          總計金額：$ <span class="fs-4">{{ cart.total }}</span> NTD
+        </p>
+        <div v-else>
+          <small class="fs-7 text-muted"> 總計金額：$ {{ cart.total }} NTD </small>
+          <p class="text-primary">
+            折扣後金額：$ <span class="fs-4">{{ cart.final_total }}</span> NTD
+          </p>
+        </div>
       </div>
       <div class="col-md-6 p-5 bg-white min-vh-50">
         <h2 class="fs-4 mb-4">填寫訂購資訊</h2>
@@ -207,10 +220,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(cartStore, ['getCartList'])
+    ...mapState(cartStore, ['cart'])
   },
   methods: {
-    ...mapActions(cartStore, ['removeFromCart', 'removeAllCart', 'setCartQty']),
+    ...mapActions(cartStore, ['getCart']),
     onSubmit(values, { resetForm }) {
       console.log(JSON.stringify(values, null, 2))
     },
@@ -229,6 +242,8 @@ export default {
       })
     }
   },
-  created() {}
+  created() {
+    this.getCart()
+  }
 }
 </script>
