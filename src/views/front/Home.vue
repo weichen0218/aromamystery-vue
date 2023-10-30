@@ -1,56 +1,5 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
-    <div class="container">
-      <button
-        class="navbar-toggler collapsed"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div>
-        <img src="@/assets/image/logo.svg" alt="logo" class="me-1 d-none d-lg-inline" style="height: 30px" />
-        <a class="navbar-brand text-tertiary align-bottom" href="#">芳香秘境</a>
-      </div>
-      <div class="order-lg-1">
-        <a class="navbar-brand d-inline mx-1" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
-          <i class="bi bi-cart2 cartIcon">
-            <span v-if="cart.carts" class="cartBadge">
-              <span class="cartCount">{{ cart.carts.length }}</span>
-            </span>
-          </i>
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item mx-2">
-            <a class="nav-link active" aria-current="page" href="#home" @click.prevent="scrollToSection('home')">首頁</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#info" @click.prevent="scrollToSection('info')">課程資訊</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#share" @click.prevent="scrollToSection('share')">案例分享</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#qa" @click.prevent="scrollToSection('qa')">常見問題</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#price" @click.prevent="scrollToSection('price')">方案費用</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">聯絡我們</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
   <header>
     <section id="home" class="header px-4 py-5 d-flex justify-content-center align-items-center" :style="{ backgroundImage: heroBackground }">
       <div class="text-center text-white">
@@ -113,46 +62,22 @@
 
   <share></share>
 
-  <qa-list></qa-list>
   <section class="container py-5" id="price">
-    <h2 class="text-center mb-4">方案費用</h2>
-    <ul class="row row-cols-1 row-cols-lg-3 g-3 g-lg-4 list-unstyled">
+    <h2 class="text-center mb-4">熱門課程</h2>
+    <div class="row g-4 pb-5">
       <price-card
         v-for="(product, index) in sortProducts"
         :key="index"
         :id="product.id"
         :title="product.title"
-        :header-class="headerClass[index]"
+        :content="product.content"
         :image="product.imageUrl"
         :image-alt="product.title"
         :price="product.price"
-        :features="product.content"
+        :origin_price="product.origin_price"
       />
-    </ul>
+    </div>
   </section>
-
-  <footer>
-    <section class="bg-primary py-5 text-white" id="contact">
-      <div class="container">
-        <h2 class="text-center mb-4">聯絡我們</h2>
-        <div class="row justify-content-center flex-row-reverse gy-5">
-          <contact-form></contact-form>
-          <div class="col-md-6 col-lg-5">
-            <p>現在就報名加入我們，探索芳療的獨特魅力！</p>
-            <h3 class="h4">聯絡方式</h3>
-            <ul class="list-unstyled">
-              <li v-for="(item, index) in contacts" :key="index"><i :class="item.iconClass + ' me-2'"></i>{{ item.text }}</li>
-            </ul>
-            <h3 class="h4 mt-5">社群關注</h3>
-            <ul class="list-unstyled">
-              <li v-for="(item, index) in socialMedia" :key="index"><i :class="item.iconClass + ' me-2'"></i>{{ item.text }}</li>
-            </ul>
-            <p id="copyright">2023 &copy; 芳香秘境｜Designed By 劉韋辰</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </footer>
 </template>
 
 <script>
@@ -164,10 +89,9 @@ import LoginModal from '@/components/LoginModal.vue'
 import Offcanvas from '@/components/Offcanvas.vue'
 import Info from '@/components/Info.vue'
 import Share from '@/components/Share.vue'
-import QAList from '@/components/QAList.vue'
+
 import PriceCard from '@/components/PriceCard.vue'
-import ContactForm from '@/components/ContactForm.vue'
-import troubleCard from '@/components/troubleCard.vue'
+import TroubleCard from '@/components/TroubleCard.vue'
 import ToastMessage from '@/components/ToastMessage.vue'
 
 import productStore from '@/stores/productStore.js'
@@ -178,18 +102,8 @@ export default {
   data() {
     return {
       showBtn: false,
-      headerClass: ['text-primary', 'bg-primary text-white', 'text-primary'],
       heroBackground: 'linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3)), url("src/assets/image/hero02.jpg")',
       troubleBackground: 'url("src/assets/image/bg_paper.png")',
-      contacts: [
-        { iconClass: 'bi bi-envelope', text: 'Aromamystery@email.com' },
-        { iconClass: 'bi bi-telephone', text: '0987-654-321' }
-      ],
-      socialMedia: [
-        { iconClass: 'bi bi-instagram', text: '@Aromamystery' },
-        { iconClass: 'bi bi-facebook', text: 'fb.me/Aromamystery' },
-        { iconClass: 'bi bi-twitter', text: 'Aromamystery' }
-      ],
       troubles: [
         {
           id: 1,
@@ -251,16 +165,13 @@ export default {
     Header,
     // Button,
     SuccessModal,
-
     LoginModal,
     Offcanvas,
     ToastMessage,
     Info,
-    'trouble-card': troubleCard,
+    'trouble-card': TroubleCard,
     share: Share,
-    'qa-list': QAList,
-    'price-card': PriceCard,
-    'contact-form': ContactForm
+    'price-card': PriceCard
   }
 }
 </script>

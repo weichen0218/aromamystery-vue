@@ -1,6 +1,6 @@
 <template>
-  <li class="col">
-    <div class="card card--float border-0 shadow h-100">
+  <div class="col-md-6 col-lg-4">
+    <!-- <div class="card card--float border-0 shadow h-100">
       <div class="card-header border-0 text-center" :class="headerClass">
         {{ title }}
       </div>
@@ -21,15 +21,41 @@
           </div>
         </button>
       </div>
+    </div> -->
+    <div class="card price-card h-100 shadow">
+      <div class="card-img-top" @click="$router.push(`/product/${id}`)">
+        <img :src="image" :alt="imageAlt" class="price-card-img img-fluid object-fit-cover" />
+        <div class="card-img-overlay d-flex align-items-center justify-content-center">
+          <h5 class="card-title text-center text-white fs-4">查看更多</h5>
+        </div>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ title }}</h5>
+        <p class="card-text text-muted flex-grow-1">{{ content }}</p>
+        <div class="product-price align-self-end">
+          <span class="text-danger fw-bold fs-3">${{ price }}&nbsp;</span><del>${{ origin_price }}</del>
+        </div>
+
+        <button @click="addToCart(id)" :disabled="id === cartLoadingItem" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 mt-auto">
+          選擇方案
+          <!-- v-if="id === cartLoadingItem" -->
+          <div v-if="id === cartLoadingItem" class="d-inline">
+            <div class="spinner-grow spinner-grow-xs ms-1 text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-xs ms-1 text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-xs ms-1 text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </button>
+      </div>
     </div>
-  </li>
+  </div>
 </template>
-<style>
-.spinner-grow-xs {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-</style>
+
 <script>
 import cartStore from '@/stores/cartStore.js'
 import statusStore from '@/stores/statusStore.js'
@@ -44,7 +70,7 @@ export default {
       type: String,
       required: true
     },
-    headerClass: {
+    content: {
       type: String,
       required: true
     },
@@ -60,8 +86,8 @@ export default {
       type: Number,
       required: true
     },
-    features: {
-      type: String,
+    origin_price: {
+      type: Number,
       required: true
     }
   },
@@ -70,11 +96,6 @@ export default {
   },
   methods: {
     ...mapActions(cartStore, ['addToCart'])
-  },
-  computed: {
-    featureString() {
-      return this.features.split('、')
-    }
   }
 }
 </script>

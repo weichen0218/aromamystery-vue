@@ -299,6 +299,7 @@ $cyans: (
 
 // scss-docs-start theme-color-variables
 $primary: #c68d38; // $blue !default;
+$primary-light: #ffe8cc;
 $secondary: #977644; // $gray-600 !default;
 $tertiary: #668144;
 $tertiarylight: #a9b78d;
@@ -316,6 +317,7 @@ $dark: $gray-900 !default;
 // scss-docs-start theme-colors-map
 $theme-colors: (
   'primary': $primary,
+  'primary-light': $primary-light,
   'secondary': $secondary,
   'tertiary': $tertiary,
   'tertiarylight': $tertiarylight,

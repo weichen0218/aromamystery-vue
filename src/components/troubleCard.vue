@@ -1,6 +1,6 @@
 <template>
   <li class="col">
-    <div class="card card--float border-0 shadow h-100">
+    <div class="card card-float border-0 shadow h-100">
       <div class="card-body text-center py-4 h-100">
         <i class="fs-s-48 text-primary" :class="icon"></i>
         <h3 class="h4">{{ title }}</h3>

@@ -41,7 +41,7 @@
         <div class="cart-controls d-flex justify-content-between">
           <button @click.prevent="removeAllCart()" class="btn btn-primary text-white clearCart">清空購物車</button>
           <!-- data-bs-toggle="modal" data-bs-target="#loginModal" -->
-          <button @click="checkout" class="btn btn-primary text-white">前往結帳</button>
+          <button @click="checkorder" class="btn btn-primary text-white">前往結帳</button>
         </div>
         <!-- {{ getCartList.cartList }} -->
       </div>
@@ -74,14 +74,14 @@ export default {
   },
   methods: {
     ...mapActions(cartStore, ['getCart', 'addToCart', 'updateCart', 'removeFromCart', 'removeAllCart']),
-    checkout() {
+    checkorder() {
       // if (this.offcanvas.hide()) {
       //   console.log('hide success')
       //   console.log(this.offcanvas)
       // }
       // this.offcanvas.toggle()
       console.log(this.offcanvas)
-      this.$router.push('/checkout')
+      this.$router.push('/checkorder')
     }
   },
   mounted() {

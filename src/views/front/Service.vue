@@ -1,7 +1,7 @@
 <template>
-  <section class="py-5" id="qa" style="background-image: url(src/assets/image/bg_paper.png)">
+  <section class="py-5" id="service" style="background-image: url(src/assets/image/bg_paper.png)">
     <div class="container">
-      <h2 class="text-center mb-4">{{ qaTitle }}</h2>
+      <h2 class="text-center mb-4">常見問題</h2>
       <div class="row justify-content-center">
         <div class="col-md-10">
           <div class="accordion accordion-flush" id="accordionPanels">
@@ -30,12 +30,10 @@
     </div>
   </section>
 </template>
-
 <script>
 export default {
   data() {
     return {
-      qaTitle: '常見問題',
       qaList: [
         {
           question: 'Q: 什麼是芳療師？',

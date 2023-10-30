@@ -238,7 +238,11 @@ export default {
       const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/order`
       const order = this.form
       this.$http.post(api, { data: order }).then((res) => {
-        console.log(res)
+        if (res.data.success) {
+          console.log(res.data)
+          resetForm()
+          this.$router.push(`/checkout/${res.data.orderId}`)
+        }
       })
     }
   },

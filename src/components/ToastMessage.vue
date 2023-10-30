@@ -15,6 +15,7 @@ export default {
   setup() {
     const status = statusStore()
     const { messages } = storeToRefs(status)
+    console.log('setup')
     return {
       messages
     }

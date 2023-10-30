@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import productStore from '@/stores/productStore.js'
 import statusStore from '@/stores/statusStore.js'
 import axios from 'axios'
 
