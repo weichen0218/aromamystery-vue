@@ -77,7 +77,7 @@
     </div> -->
 
   <div class="container">
-    <div class="row g-0 p-3 text-center">
+    <div class="row g-0 p-3 text-center" v-if="cart.total">
       <ul class="steps row g-0 list-unstyled mb-4">
         <li class="col-4 active"><small class="ls-3 d-block">STEP1</small><span>確認訂單</span></li>
         <li class="col-4 mx-3"><small class="ls-3 d-block">STEP2</small><span>建立訂單</span></li>
@@ -85,9 +85,9 @@
       </ul>
     </div>
     <div class="min-vh-50 d-flex flex-column align-items-center justify-content-center text-secondary" v-if="!cart.total">
-      <span class="material-icons mb-2 fs-2"> announcement </span>
-      <p class="fs-7" style="letter-spacing: 2px">購物車內沒有商品</p>
-      <router-link class="btn btn-primary py-2 px-4" to="/products?category=all&page=1">挑選商品</router-link>
+      <!-- <span class="material-icons mb-2 fs-2"> announcement </span> -->
+      <p class="fs-5" style="letter-spacing: 2px">購物車內沒有商品</p>
+      <router-link class="btn btn-primary py-2 px-4 text-white" to="/products?category=all&page=1">挑選課程</router-link>
     </div>
     <div class="row g-0 justify-content-between" v-else>
       <div class="col-md-6 col-lg-5 px-3 m-0">
@@ -112,7 +112,7 @@
           <input type="text" class="form-control panya-input p-2" placeholder="輸入優惠碼" v-model="code" v-else />
           <button type="button" class="btn btn-sm btn-primary px-3" :disabled="isDiscount" @click="useCoupon">
             套用優惠券
-            <Spinner :spin-item="code" />
+            <Spinner />
           </button>
         </div>
         <p class="text-primary" v-if="!isDiscount">
@@ -125,8 +125,8 @@
           </p>
         </div>
       </div>
-      <div class="col-md-6 p-5 bg-white min-vh-50">
-        <h2 class="fs-4 mb-4">填寫訂購資訊</h2>
+      <div class="col-md-6 col-lg-5 px-3 pb-3 m-0 min-vh-50">
+        <h2 class="fs-4 mb-5">填寫訂購資訊</h2>
         <Form v-slot="{ errors, validate }" @submit="createOrder" novalidate class="needs-validation" id="order">
           <ul class="list-unstyled">
             <li class="mb-3">
@@ -166,7 +166,7 @@
               <ErrorMessage name="備註" class="invalid-feedback" />
             </li>
           </ul>
-          <button @click="validate" type="submit" class="btn btn-primary w-100 py-3 mt-5 text-white">送出訂單</button>
+          <button @click="validate" type="submit" class="btn btn-primary w-100 py-3 text-white">送出訂單</button>
         </Form>
       </div>
     </div>
@@ -200,12 +200,17 @@
 .ls-3 {
   letter-spacing: 3px;
 }
+.container {
+  /* background-color: #bac8ff; */
+}
 </style>
 <script>
+import Spinner from '@/components/Spinner.vue'
 import cartStore from '@/stores/cartStore.js'
 import { mapState, mapActions } from 'pinia'
 
 export default {
+  components: { Spinner },
   data() {
     return {
       form: {

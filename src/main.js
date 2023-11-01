@@ -4,7 +4,7 @@ import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
-import 'bootstrap/dist/js/bootstrap.js'
+// import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 // vee-validate
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate'

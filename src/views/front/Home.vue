@@ -14,17 +14,9 @@
     </section>
   </header>
 
-  <!-- Back to top button -->
-  <div v-if="showBtn">
-    <a href="#home" class="btn btn-tertiary rounded-circle" id="btn-back-to-top" @click.prevent="scrollToSection('home')">
-      <i class="bi bi-arrow-up text-white"></i>
-    </a>
-  </div>
-
   <div>
     <SuccessModal ref="successModal" />
     <LoginModal ref="loginModal" />
-    <Offcanvas ref="offcanvas" />
     <ToastMessage />
   </div>
 
@@ -81,12 +73,11 @@
 </template>
 
 <script>
-// import Nav from '@/components/Navbar.vue'
 import Header from '@/components/Header.vue'
 import SuccessModal from '@/components/SuccessModal.vue'
 
 import LoginModal from '@/components/LoginModal.vue'
-import Offcanvas from '@/components/Offcanvas.vue'
+
 import Info from '@/components/Info.vue'
 import Share from '@/components/Share.vue'
 
@@ -101,8 +92,7 @@ import { mapState, mapActions } from 'pinia'
 export default {
   data() {
     return {
-      showBtn: false,
-      heroBackground: 'linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3)), url("src/assets/image/hero02.jpg")',
+      heroBackground: 'linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("src/assets/image/hero03.jpg")',
       troubleBackground: 'url("src/assets/image/bg_paper.png")',
       troubles: [
         {
@@ -140,33 +130,19 @@ export default {
   methods: {
     ...mapActions(productStore, ['GetAllProducts']),
     ...mapActions(cartStore, ['getCart']),
-    scrollToSection(sectionId) {
-      const element = document.getElementById(sectionId)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      }
-    },
-    handleScroll() {
-      this.showBtn = window.scrollY >= 40
-    }
+    ...mapActions(statusStore, ['resetMessage'])
   },
   created() {
     this.GetAllProducts()
     this.getCart()
   },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll)
+  beforeUnmount() {
+    this.resetMessage()
   },
   components: {
-    // Nav,
     Header,
-    // Button,
     SuccessModal,
     LoginModal,
-    Offcanvas,
     ToastMessage,
     Info,
     'trouble-card': TroubleCard,

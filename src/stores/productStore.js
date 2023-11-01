@@ -4,7 +4,8 @@ import statusStore from '@/stores/statusStore.js'
 const status = statusStore()
 export default defineStore('productStore', {
   state: () => ({
-    products: []
+    products: [],
+    category: []
   }),
   actions: {
     GetAllProducts() {
@@ -12,6 +13,10 @@ export default defineStore('productStore', {
       status.isLoading = true
       axios.get(api).then((res) => {
         this.products = res.data.products
+        const arry = this.products.map((item) => item.category)
+        const newSet = new Set(arry)
+        this.category = [...newSet]
+        console.log(this.category)
         status.isLoading = false
       })
     }

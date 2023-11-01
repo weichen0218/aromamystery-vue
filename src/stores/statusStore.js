@@ -10,6 +10,9 @@ export default defineStore('statusStore', {
     pushMessage(data) {
       const { style, title, content } = data
       this.messages.push({ style, title, content })
+    },
+    resetMessage() {
+      this.messages = []
     }
   }
 })

@@ -38,18 +38,7 @@
 
         <button @click="addToCart(id)" :disabled="id === cartLoadingItem" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 mt-auto">
           選擇方案
-          <!-- v-if="id === cartLoadingItem" -->
-          <div v-if="id === cartLoadingItem" class="d-inline">
-            <div class="spinner-grow spinner-grow-xs ms-1 text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-xs ms-1 text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-xs ms-1 text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
+          <Spinner v-if="id === cartLoadingItem" />
         </button>
       </div>
     </div>
@@ -57,10 +46,12 @@
 </template>
 
 <script>
+import Spinner from '@/components/Spinner.vue'
 import cartStore from '@/stores/cartStore.js'
 import statusStore from '@/stores/statusStore.js'
 import { mapState, mapActions } from 'pinia'
 export default {
+  components: { Spinner },
   props: {
     id: {
       type: String,

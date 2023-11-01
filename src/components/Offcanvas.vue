@@ -2,7 +2,7 @@
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel" ref="offcanvas">
     <div class="offcanvas-header border-bottom">
       <h5 class="offcanvas-title" id="cartOffcanvasLabel">購物車</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button @click="closeOffcanvas" type="button" class="btn-close text-reset" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
       <div v-if="!cart.carts.length" class="text-center">購物車目前沒有商品！</div>
@@ -21,7 +21,7 @@
             <tr v-for="item in cart.carts" :key="item.id">
               <td width="80"><img class="table-img" :src="item.product.imageUrl" alt="" /></td>
               <td class="text-primary">
-                {{ item.product.title }} <span class="d-block"> NT$ {{ item.product.origin_price }}</span>
+                {{ item.product.title }} <span class="d-block"> NT$ {{ item.product.price }}</span>
               </td>
               <td>
                 <input type="number" :disabled="item.id === cartLoadingItem" v-model.number="item.qty" @blur="updateCart(item)" min="1" max="30" class="form-control" inputmode="numeric" />
@@ -57,37 +57,29 @@ input[type='number'] {
 }
 </style>
 <script>
-import Offcanvas from 'bootstrap/js/dist/offcanvas'
-import cartStore from '@/stores/cartStore.js'
-import statusStore from '../stores/statusStore'
+import uiStore from '@/stores/uiStore'
+import cartStore from '@/stores/cartStore'
+import statusStore from '@/stores/statusStore'
 import { mapState, mapActions } from 'pinia'
 export default {
   data() {
-    return {
-      offcanvas: {},
-      toggleCart: false
-    }
+    return {}
   },
   computed: {
     ...mapState(cartStore, ['cart']),
+    ...mapState(uiStore, ['offcanvas']),
     ...mapState(statusStore, ['isLoading', 'cartLoadingItem'])
   },
   methods: {
     ...mapActions(cartStore, ['getCart', 'addToCart', 'updateCart', 'removeFromCart', 'removeAllCart']),
+    ...mapActions(uiStore, ['newOffcanvasInstance', 'closeOffcanvas']),
     checkorder() {
-      // if (this.offcanvas.hide()) {
-      //   console.log('hide success')
-      //   console.log(this.offcanvas)
-      // }
-      // this.offcanvas.toggle()
-      console.log(this.offcanvas)
+      this.closeOffcanvas()
       this.$router.push('/checkorder')
     }
   },
   mounted() {
-    // this.offcanvas = new Offcanvas(this.$refs.offcanvas)
-    // this.offcanvas.show()
-    // this.offcanvas.hide()
+    this.newOffcanvasInstance(this.$refs.offcanvas)
   }
 }
 </script>

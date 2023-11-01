@@ -1,6 +1,12 @@
 <template>
   <Navbar></Navbar>
+  <!-- class="min-height" -->
   <router-view></router-view>
+  <div v-if="showBtn">
+    <a href="#home" class="btn btn-tertiary rounded-circle" id="btn-back-to-top" @click.prevent="scrollToTop">
+      <i class="bi bi-arrow-up text-white"></i>
+    </a>
+  </div>
   <footer>
     <section class="bg-primary py-4 text-white" id="copyright">
       <div class="container">
@@ -14,11 +20,35 @@
     </section>
   </footer>
 </template>
+<style>
+.min-height {
+  min-height: calc(100vh - 136px);
+}
+</style>
 <script>
 import Navbar from '@/components/Navbar.vue'
 export default {
+  data() {
+    return {
+      showBtn: false
+    }
+  },
   components: {
     Navbar
+  },
+  methods: {
+    showScrollBtn() {
+      this.showBtn = window.scrollY >= 40
+    },
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.showScrollBtn)
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.showScrollBtn)
   }
 }
 </script>
