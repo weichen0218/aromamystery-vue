@@ -45,6 +45,11 @@
     box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.32);
     // cursor: pointer;
   }
+  @media (max-width: 992px) {
+    &:hover {
+      transform: none;
+    }
+  }
 }
 // .card-body {
 //   position: relative;

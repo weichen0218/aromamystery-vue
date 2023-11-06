@@ -10,6 +10,7 @@
           我們的精油課程將帶你進入精油的奇妙世界，<br />
           讓你從中獲得健康、平衡和幸福。
         </p>
+        <router-link to="/products" class="btn btn-outline-primary text-white border-white">探索精油之美&nbsp;<i class="bi bi-arrow-right"></i></router-link>
       </div>
     </section>
   </header>
@@ -17,7 +18,6 @@
   <div>
     <SuccessModal ref="successModal" />
     <LoginModal ref="loginModal" />
-    <ToastMessage />
   </div>
 
   <section id="info">
@@ -37,12 +37,12 @@
           </div>
         </div>
         <div class="col-lg-6 d-flex align-items-center justify-content-center">
-          <img src="@/assets/image/info.jpg" alt="info-picture" class="w-100 w-lg-75" />
+          <img src="@/assets/image/info.png" alt="info-picture" class="w-100 w-lg-75" />
         </div>
       </div>
     </div>
 
-    <div class="py-5" id="trouble" :style="{ backgroundImage: troubleBackground }">
+    <div class="py-5" id="trouble">
       <div class="container">
         <h2 class="text-center mb-4">你有這些煩惱嗎？</h2>
         <ul class="row row-cols-1 row-cols-lg-4 g-3 g-lg-4 list-unstyled">
@@ -52,7 +52,26 @@
     </div>
   </section>
 
-  <share></share>
+  <section id="course">
+    <div class="container py-5">
+      <h2 class="text-center mb-4">我們的課程提供</h2>
+      <div class="row flex-row-reverse align-items-center">
+        <div class="col-lg-6">
+          <h3 class="h4"><i class="bi bi-check-circle-fill checkIcon me-2"></i>全面的精油基礎知識</h3>
+          <p class="text-quaternary ms-6">從精油的起源、提取方法到各種精油的特性，讓您建立堅實的基礎。我們還會深入瞭解每種精油的化學成分，以及這些成分如何影響我們的身體和心理</p>
+          <h2 class="h4"><i class="bi bi-check-circle-fill checkIcon me-2"></i>實用的應用技巧</h2>
+          <p class="text-quaternary ms-6">學習如何安全合理地使用精油，包括擴香技巧，使學員能夠在家中營造舒適的氛圍，以及按摩和護膚技巧，讓精油的益處能夠透過皮膚吸收</p>
+          <h2 class="h4"><i class="bi bi-check-circle-fill checkIcon me-2"></i>精心設計的調配示範</h2>
+          <p class="text-quaternary ms-6">我們將示範多種情境下的精油調配，讓您能夠根據需求自行製作出符合目標的混合物。</p>
+        </div>
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+          <img src="@/assets/image/course.png" alt="info-picture" class="w-100 w-lg-75" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Testimonial />
 
   <section class="container py-5" id="price">
     <h2 class="text-center mb-4">熱門課程</h2>
@@ -79,11 +98,10 @@ import SuccessModal from '@/components/SuccessModal.vue'
 import LoginModal from '@/components/LoginModal.vue'
 
 import Info from '@/components/Info.vue'
-import Share from '@/components/Share.vue'
+import Testimonial from '@/components/Testimonial.vue'
 
 import PriceCard from '@/components/PriceCard.vue'
 import TroubleCard from '@/components/TroubleCard.vue'
-import ToastMessage from '@/components/ToastMessage.vue'
 
 import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
@@ -128,13 +146,14 @@ export default {
     ...mapState(statusStore, ['isLoading'])
   },
   methods: {
-    ...mapActions(productStore, ['GetAllProducts']),
+    ...mapActions(productStore, ['getAllProducts']),
     ...mapActions(cartStore, ['getCart']),
     ...mapActions(statusStore, ['resetMessage'])
   },
   created() {
-    this.GetAllProducts()
+    this.getAllProducts()
     this.getCart()
+    console.log('this cart1:', this.cart)
   },
   beforeUnmount() {
     this.resetMessage()
@@ -143,10 +162,9 @@ export default {
     Header,
     SuccessModal,
     LoginModal,
-    ToastMessage,
     Info,
     'trouble-card': TroubleCard,
-    share: Share,
+    Testimonial,
     'price-card': PriceCard
   }
 }

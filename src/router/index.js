@@ -50,18 +50,25 @@ const router = createRouter({
         }
       ]
     },
-
     {
       path: '/login',
       component: () => import('../views/admin/Login.vue')
     },
     {
-      path: '/dashboard',
+      path: '/admin',
       component: () => import('../views/admin/Dashboard.vue'),
       children: [
         {
           path: 'products',
           component: () => import('../views/admin/Products.vue')
+        },
+        {
+          path: 'coupons',
+          component: () => import('../views/admin/Coupons.vue')
+        },
+        {
+          path: 'orders',
+          component: () => import('@/views/admin/Orders.vue')
         }
       ]
     }

@@ -1,40 +1,44 @@
 <template>
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th width="120">分類</th>
-        <th>產品名稱</th>
-        <th width="120">原價</th>
-        <th width="120">售價</th>
-        <th width="100">是否啟用</th>
-        <th width="200">編輯</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in products" :key="item.id">
-        <td>{{ item.category }}</td>
-        <td>{{ item.title }}</td>
-        <td class="text-right">{{ item.origin_price }}</td>
-        <td class="text-right">{{ item.price }}</td>
-        <td>
-          <span class="text-success" v-if="item.is_enabled">啟用</span>
-          <span class="text-muted" v-else>未啟用</span>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm">編輯</button>
+  <Loading :active="isLoading"></Loading>
+  <div class="container-fluid p-3">
+    <div class="text-end"><button class="btn btn-primary text-white">新增產品</button></div>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th class="col-2 ps-4">分類</th>
+          <th class="col-3">產品名稱</th>
+          <th class="col-2">原價</th>
+          <th class="col-2">售價</th>
+          <th class="col-1">啟用</th>
+          <th class="col-2">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in products" :key="item.id">
+          <td class="ps-4">{{ item.category }}</td>
+          <td>{{ item.title }}</td>
+          <td class="text-right">{{ item.origin_price }}</td>
+          <td class="text-right">{{ item.price }}</td>
+          <td>
+            <span class="text-success" v-if="item.is_enabled">啟用</span>
+            <span class="text-muted" v-else>未啟用</span>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm me-2">編輯</button>
             <button class="btn btn-outline-danger btn-sm">刪除</button>
             <!-- <button @click.prevent="modifyProduct" class="btn btn-outline-success btn-sm">修改</button> -->
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- <button @click.prevent="addItem" type="button">按我新增資料</button>
   <button @click.prevent="deleteItem" type="button">按我刪除資料</button> -->
 </template>
 <script>
+import statusStore from '@/stores/statusStore.js'
+import { mapState } from 'pinia'
 export default {
   data() {
     return {
@@ -43,8 +47,8 @@ export default {
       dataOne: {
         title: '初階課程',
         category: '初階',
-        price: 999,
-        origin_price: 1999,
+        price: 1000,
+        origin_price: 1500,
         unit: '堂',
         content: '了解精油基礎知識、療效和用途、如何安全使用精油守則、學習製作基本的精油產品',
         description:
@@ -56,8 +60,8 @@ export default {
       dataTwo: {
         title: '中階課程',
         category: '中階',
-        price: 2999,
-        origin_price: 3999,
+        price: 3000,
+        origin_price: 3500,
         unit: '堂',
         content: '了解精油化學成分與影響、製作複雜複方精油、掌握香薰按摩的技巧、探討精油對情緒的影響、使用工具提高效果',
         description:
@@ -69,8 +73,8 @@ export default {
       dataThree: {
         title: '進階課程',
         category: '進階',
-        price: 4999,
-        origin_price: 5999,
+        price: 5000,
+        origin_price: 5500,
         unit: '堂',
         content: '症狀管理與應用、心靈療法和心理諮詢中的精油應用、主持精油工作坊技巧、精油事業發展',
         description:
@@ -78,8 +82,18 @@ export default {
         is_enabled: 1,
         imageUrl: 'https://firebasestorage.googleapis.com/v0/b/aromatherapy-course.appspot.com/o/plan03.jpg?alt=media&token=6d1bf4df-8e08-4108-8dd9-840566bc6538'
         // imagesUrl: ['圖片網址一', '圖片網址二', '圖片網址三', '圖片網址四', '圖片網址五']
+      },
+      coupon: {
+        title: '超級特惠價格',
+        is_enabled: 1,
+        percent: 80,
+        due_date: 1719792000,
+        code: 'Welcome'
       }
     }
+  },
+  computed: {
+    ...mapState(statusStore, ['isLoading'])
   },
   methods: {
     deleteItem() {
@@ -124,6 +138,18 @@ export default {
       this.$http[httpMethod](api, { data: this.dataThree }).then((res) => {
         if (res.data.success) {
           console.log('modify success')
+        } else {
+          alert(res.data.message)
+        }
+      })
+    },
+    addCoupon() {
+      const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/admin/coupon`
+      // const coupon = { code: 'Welcome' }
+      this.$http.post(url, { data: this.coupon }).then((res) => {
+        if (res.data.success) {
+          console.log('add success')
+          console.log(res.data)
         } else {
           alert(res.data.message)
         }

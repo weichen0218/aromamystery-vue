@@ -56,7 +56,7 @@ export default defineStore('cartStore', {
     removeFromCart(id) {
       const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/cart/${id}`
       status.isLoading = true
-      status.cartLoadingItem = item.id
+      status.cartLoadingItem = id
       axios.delete(url).then((res) => {
         this.getCart()
         status.pushMessage({ style: 'success', title: '已移除商品', content: '成功移除商品' })
@@ -73,29 +73,6 @@ export default defineStore('cartStore', {
         status.isLoading = false
       })
     }
-    // setCartQty(productId, event) {
-    //   const productInCart = this.cart.find((item) => item.productId === productId)
-    //   productInCart.qty = event.target.value * 1
-    // }
   },
-  getters: {
-    // getCartList: ({ cart }) => {
-    //   // 1. 取得 productList
-    //   const { productList } = productStore()
-    //   // 2. 整合資料 productList
-    //   const cartList = cart.map((cartItem) => {
-    //     const product = productList.find((productItem) => productItem.id === cartItem.productId)
-    //     return {
-    //       ...cartItem,
-    //       product,
-    //       subtotal: product.price * cartItem.qty
-    //     }
-    //   })
-    //   const totalPrice = cartList.reduce((a, b) => a + b.subtotal, 0)
-    //   return {
-    //     cartList,
-    //     totalPrice
-    //   }
-    // }
-  }
+  getters: {}
 })

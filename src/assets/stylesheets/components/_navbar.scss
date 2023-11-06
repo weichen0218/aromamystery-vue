@@ -4,6 +4,9 @@
     background-color 0.5s,
     backdrop-filter 0.5s,
     box-shadow 0.5s;
+  a {
+    cursor: pointer;
+  }
 }
 .navbar-nav .nav-link.active {
   color: $tertiary;

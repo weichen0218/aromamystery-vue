@@ -1,0 +1,23 @@
+.front {
+  background: $warm;
+  #testimonial .card {
+    background: $warm;
+  }
+  #navbar {
+    background: $warm;
+  }
+}
+.steps li {
+  width: calc(33.33333% - 0.66667rem);
+  background: rgba(237, 235, 234, 0.6);
+  padding: 1rem;
+  text-align: center;
+  color: #6c757d;
+  &.active {
+    background: #c68d38;
+    color: #fff;
+  }
+}
+.steps li .ls-3 {
+  letter-spacing: 3px;
+}

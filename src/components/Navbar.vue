@@ -11,7 +11,7 @@
       <div class="order-lg-1">
         <a @click.prevent="openOffcanvas" class="navbar-brand d-inline mx-1" aria-controls="cartOffcanvas">
           <i class="bi bi-cart2 cartIcon">
-            <span v-if="cart.carts" class="cartBadge">
+            <span v-if="cart.carts.length" class="cartBadge">
               <span class="cartCount">{{ cart.carts.length }}</span>
             </span>
           </i>
@@ -63,7 +63,7 @@ export default {
     }
   },
   mounted() {
-    this.Collapse = new Collapse(this.$refs.collapse)
+    this.Collapse = new Collapse(this.$refs.collapse, { toggle: false })
   }
 }
 </script>

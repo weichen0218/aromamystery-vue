@@ -1,7 +1,12 @@
 <template>
-  <Navbar></Navbar>
   <!-- class="min-height" -->
-  <router-view></router-view>
+  <div class="front">
+    <Navbar></Navbar>
+    <div class="min-height">
+      <router-view></router-view>
+    </div>
+  </div>
+
   <div v-if="showBtn">
     <a href="#home" class="btn btn-tertiary rounded-circle" id="btn-back-to-top" @click.prevent="scrollToTop">
       <i class="bi bi-arrow-up text-white"></i>
@@ -19,6 +24,7 @@
       </div>
     </section>
   </footer>
+  <ToastMessage />
 </template>
 <style>
 .min-height {
@@ -27,6 +33,7 @@
 </style>
 <script>
 import Navbar from '@/components/Navbar.vue'
+import ToastMessage from '@/components/ToastMessage.vue'
 export default {
   data() {
     return {
@@ -34,7 +41,8 @@ export default {
     }
   },
   components: {
-    Navbar
+    Navbar,
+    ToastMessage
   },
   methods: {
     showScrollBtn() {

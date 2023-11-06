@@ -1,82 +1,5 @@
 <template>
-  <!-- <div class="container">
-    <div class="my-5">
-      <ul class="nav orderNav justify-content-around">
-        <li class="nav-item"><a disabled class="nav-link">購物清單</a></li>
-        <li class="nav-item"><a disabled class="nav-link">填寫資料</a></li>
-        <li class="nav-item"><a disabled class="nav-link">確認訂單</a></li>
-        <li class="nav-item"><a disabled class="nav-link">交易結果</a></li>
-      </ul>
-      <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-        <div class="progress-bar" style="width: 25%"></div>
-      </div>
-    </div>
-  </div> -->
-  <!-- :class="progress.current == 'cart' ? 'active' : ''" -->
-  <!-- <div class="row">
-      <div class="col-lg-7">
-        <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-          <ol class="breadcrumb px-0">
-            <li class="breadcrumb-item active">選擇課程</li>
-            <li class="breadcrumb-item">填寫資料</li>
-            <li class="breadcrumb-item">付款結帳</li>
-            <li class="breadcrumb-item">結帳成功</li>
-          </ol>
-        </nav>
-        <div class="cart">
-          <div class="h2">選擇課程</div>
-          <section class="mt-4">
-            <table class="table table-borderless align-middle text-center">
-              <thead class="thead">
-                <tr>
-                  <th>商品名稱</th>
-                  <th>數量</th>
-                  <th>小計</th>
-                  <th>移除</th>
-                </tr>
-              </thead>
-              <tbody class="tbody">
-                <tr v-for="item in getCartList.cartList" :key="item.id">
-                  <td width="100"><img class="table-img" :src="item.product.image" alt="" /></td>
-                  <td class="text-primary">{{ item.product.title }}</td>
-                  <td>
-                    <select :value="item.qty" @change="(event) => setCartQty(item.productId, event)" class="form-select">
-                      <option :value="i" v-for="i in 20" :key="i">{{ i }}</option>
-                    </select>
-                  </td>
-                  <td>{{ item.subtotal }}</td>
-                  <td>
-                    <button @click.prevent="removeFromCart(item.id)" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr class="border-top-1">
-                  <td colspan="5" class="text-end totalPrice">總金額 NT$ {{ getCartList.totalPrice }}</td>
-                </tr>
-              </tfoot>
-            </table>
-            <div class="bg-light d-flex align-items-center ng-scope">
-              <img
-                ng-alt="JS 框架組合包"
-                class="course-img"
-                src="https://firebasestorage.googleapis.com/v0/b/hexschool-api.appspot.com/o/web%2Forder%2Fproducts%2Fz_js-plus_js-core_vue3%400.5x.png?alt=media&amp;token=a591f84b-1baf-41d6-95f0-79269731aea2"
-              />
-              <h5 class="mb-0 mx-3 custom-fs-lg ng-binding">JS 框架組合包</h5>
-              <div class="text-right text-nowrap mx-3 ml-auto">
-                <p class="mb-0 custom-fs-normal font-weight-bold ng-binding">NT$ 7,500</p>
-
-                <p ng-if="item.origin_price !== item.price" class="mb-0 text-muted ng-scope" style="">
-                  <small><del class="ng-binding">原價：10,000</del></small>
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div> -->
-
-  <div class="container">
+  <div class="container" id="checkorder">
     <div class="row g-0 p-3 text-center" v-if="cart.total">
       <ul class="steps row g-0 list-unstyled mb-4">
         <li class="col-4 active"><small class="ls-3 d-block">STEP1</small><span>確認訂單</span></li>
@@ -95,37 +18,38 @@
           確認訂單內容
           <!-- <button class="btn btn-sm btn-outline-primary ms-2" type="button" @click="$emitter.emit('toggle-cart', true)">修改內容</button> -->
         </h2>
-        <ul class="list-unstyled">
-          <li class="d-flex align-items-center mb-4" v-for="item in cart.carts" :key="item">
-            <div class="cart-img" :style="{ 'background-image': `url(${item.product.imageUrl})` }"></div>
-            <div class="cart-cont col px-3 d-flex">
-              <div class="col-7 pe-2">
-                <p class="m-0">{{ item.product.title }}</p>
-                <small>數量：{{ item.qty }}</small>
-              </div>
-              <div class="col-5 ls-1 text-end">$ {{ item.product.price }} NTD</div>
-            </div>
-          </li>
-        </ul>
-        <div class="input-group mb-4">
-          <input type="text" class="form-control panya-input p-2" placeholder="已套用優惠券" disabled v-if="isDiscount" />
-          <input type="text" class="form-control panya-input p-2" placeholder="輸入優惠碼" v-model="code" v-else />
-          <button type="button" class="btn btn-sm btn-primary px-3" :disabled="isDiscount" @click="useCoupon">
+        <table class="table table-warm table-borderless align-middle">
+          <tbody class="tbody">
+            <tr v-for="item in cart.carts" :key="item.id">
+              <td width="80"><img class="table-img" :src="item.product.imageUrl" alt="" /></td>
+              <td class="text-muted">
+                {{ item.product.title }}
+                <span class="d-block">數量：{{ item.qty }}</span>
+              </td>
+
+              <td class="text-end">NT$ {{ $cash(item.product.price) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="input-group mb-4 text-center">
+          <input type="text" class="form-control text-center p-2" placeholder="已套用優惠券" disabled v-if="isDiscount" />
+          <input type="text" class="form-control text-center p-2" placeholder="輸入優惠碼" v-model="couponCode" v-else />
+          <button type="button" class="btn btn-sm btn-primary px-3 text-white" :disabled="isDiscount" @click="useCoupon()">
             套用優惠券
-            <Spinner />
+            <Spinner v-if="loading" />
           </button>
         </div>
         <p class="text-primary" v-if="!isDiscount">
-          總計金額：$ <span class="fs-4">{{ cart.total }}</span> NTD
+          總計金額：$NT <span class="fs-4">{{ $cash(cart.total) }}</span>
         </p>
         <div v-else>
-          <small class="fs-7 text-muted"> 總計金額：$ {{ cart.total }} NTD </small>
+          <small class="fs-7 text-muted"> 總計金額：$NT {{ $cash(cart.total) }} </small>
           <p class="text-primary">
-            折扣後金額：$ <span class="fs-4">{{ cart.final_total }}</span> NTD
+            折扣後金額：$NT <span class="fs-4">{{ $cash(cart.final_total) }}</span>
           </p>
         </div>
       </div>
-      <div class="col-md-6 col-lg-5 px-3 pb-3 m-0 min-vh-50">
+      <div class="col-md-6 p-5 bg-white min-vh-50">
         <h2 class="fs-4 mb-5">填寫訂購資訊</h2>
         <Form v-slot="{ errors, validate }" @submit="createOrder" novalidate class="needs-validation" id="order">
           <ul class="list-unstyled">
@@ -186,26 +110,10 @@
   width: 270px;
   height: auto;
 }
-.steps li {
-  width: calc(33.33333% - 0.66667rem);
-  background: rgba(237, 235, 234, 0.6);
-  padding: 1rem;
-  text-align: center;
-  color: #6c757d;
-}
-.steps li.active {
-  background: #c68d38;
-  color: #fff;
-}
-.ls-3 {
-  letter-spacing: 3px;
-}
-.container {
-  /* background-color: #bac8ff; */
-}
 </style>
 <script>
 import Spinner from '@/components/Spinner.vue'
+import statusStore from '@/stores/statusStore.js'
 import cartStore from '@/stores/cartStore.js'
 import { mapState, mapActions } from 'pinia'
 
@@ -213,6 +121,9 @@ export default {
   components: { Spinner },
   data() {
     return {
+      couponCode: 'Welcome',
+      isDiscount: false,
+      loading: false,
       form: {
         user: {
           name: '',
@@ -229,6 +140,7 @@ export default {
   },
   methods: {
     ...mapActions(cartStore, ['getCart']),
+    ...mapActions(statusStore, ['pushMessage']),
     onSubmit(values, { resetForm }) {
       console.log(JSON.stringify(values, null, 2))
     },
@@ -239,7 +151,7 @@ export default {
       const phoneRegex = /^(09)[0-9]{8}$/
       return phoneRegex.test(value) ? true : '請輸入正確的手機號碼'
     },
-    createOrder() {
+    createOrder(values, { resetForm }) {
       const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/order`
       const order = this.form
       this.$http.post(api, { data: order }).then((res) => {
@@ -249,10 +161,34 @@ export default {
           this.$router.push(`/checkout/${res.data.orderId}`)
         }
       })
+    },
+    useCoupon() {
+      this.loading = true
+      const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/coupon`
+      const coupon = { code: this.couponCode }
+      this.$http.post(url, { data: coupon }).then((res) => {
+        this.loading = false
+        if (res.data.success) {
+          this.isDiscount = true
+          this.getCart()
+          this.pushMessage({ style: 'success', title: '已套用優惠券', content: '成功套用優惠券' })
+        } else {
+          this.pushMessage({ style: 'danger', title: '套用優惠券錯誤', content: '套用優惠券錯誤' })
+        }
+      })
     }
   },
   created() {
     this.getCart()
+  },
+  watch: {
+    cart(val) {
+      if (val.total !== val.final_total) {
+        this.isDiscount = true
+      } else {
+        this.isDiscount = false
+      }
+    }
   }
 }
 </script>

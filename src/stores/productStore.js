@@ -5,10 +5,11 @@ const status = statusStore()
 export default defineStore('productStore', {
   state: () => ({
     products: [],
+    product: {},
     category: []
   }),
   actions: {
-    GetAllProducts() {
+    getAllProducts() {
       const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/products/all`
       status.isLoading = true
       axios.get(api).then((res) => {
@@ -17,6 +18,15 @@ export default defineStore('productStore', {
         const newSet = new Set(arry)
         this.category = [...newSet]
         console.log(this.category)
+        status.isLoading = false
+      })
+    },
+    getProduct(id) {
+      const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/product/${id}`
+      status.isLoading = true
+      axios.get(api).then((res) => {
+        this.product = res.data.product
+        console.log(this.product)
         status.isLoading = false
       })
     }

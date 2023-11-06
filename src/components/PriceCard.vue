@@ -33,7 +33,7 @@
         <h5 class="card-title">{{ title }}</h5>
         <p class="card-text text-muted flex-grow-1">{{ content }}</p>
         <div class="product-price align-self-end">
-          <span class="text-danger fw-bold fs-3">${{ price }}&nbsp;</span><del>${{ origin_price }}</del>
+          <span class="text-danger fw-bold fs-3">${{ $cash(price) }}&nbsp;</span><del>${{ $cash(origin_price) }}</del>
         </div>
 
         <button @click="addToCart(id)" :disabled="id === cartLoadingItem" :id="id" :name="title" type="button" class="btn btn-primary text-white w-100 mt-auto">

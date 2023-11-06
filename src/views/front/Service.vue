@@ -1,10 +1,10 @@
 <template>
-  <section class="py-5" id="service" style="background-image: url(src/assets/image/bg_paper.png)">
+  <section class="py-5" id="service">
     <div class="container">
       <h2 class="text-center mb-4">常見問題</h2>
       <div class="row justify-content-center">
         <div class="col-md-10">
-          <div class="accordion accordion-flush" id="accordionPanels">
+          <div class="accordion" id="accordionPanels">
             <div class="accordion-item" v-for="(qa, index) in qaList" :key="index">
               <h2 class="accordion-header">
                 <button
@@ -50,6 +50,19 @@ export default {
         {
           question: 'Q: 如何取得芳療師的資格？',
           answer: '成為合格的芳療師需要完成相應的培訓課程，並通過相關的認證考試。在我們的網站上，你將學習到必要的知識和技能，並在課程結束後有機會參加認證考試。'
+        },
+        {
+          question: 'Q: 課程是否有時效性？',
+          answer: '我們的課程並沒有時效性。我們理解每個學生的學習速度都是不同的，您可以根據自己的節奏隨時訪問和觀看。也可以重複觀看課程內容，深入理解並隨時回顧，確保您能夠充分掌握精油的知識和技能。'
+        },
+        {
+          question: 'Q: 平台支援哪種裝置和瀏覽器？',
+          answer:
+            '為確保您在最舒適和方便的環境中進行學習，我們的線上精油教學平台兼容多種裝置和瀏覽器，像是 Google Chrome、Mozilla Firefox、Safari 和 Microsoft Edge。您可以隨心所欲地使用您喜愛的設備和瀏覽器，輕鬆觀看我們豐富的學習資源。'
+        },
+        {
+          question: 'Q: 購買課程付費方式？',
+          answer: '在結帳過程中，您將看到不同的付款選項，包括信用卡、銀行轉帳、超商付款等。請選擇您方便的付款方式。'
         }
       ]
     }

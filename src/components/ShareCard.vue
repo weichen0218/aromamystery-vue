@@ -2,6 +2,7 @@
   <div class="row align-items-center">
     <div class="col-lg-4 text-center mb-4 mb-lg-0">
       <img :src="person.image" alt="person-image" class="img-fluid rounded-circle" width="200" height="200" />
+      <h4 class="text-muted mt-2">{{ person.name }}</h4>
     </div>
     <div class="col-lg-8">
       <ul class="list-unstyled text-warning mb-1 d-flex justify-content-center justify-content-lg-start">

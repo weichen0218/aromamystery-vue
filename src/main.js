@@ -4,8 +4,8 @@ import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
-// import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import { cash } from './methods/filters'
 // vee-validate
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate'
 import { required, email, min } from '@vee-validate/rules'
@@ -24,6 +24,7 @@ configure({
 setLocale('zh_TW')
 
 const app = createApp(App)
+app.config.globalProperties.$cash = cash
 app.component('Form', Form)
 app.component('Field', Field)
 app.component('ErrorMessage', ErrorMessage)

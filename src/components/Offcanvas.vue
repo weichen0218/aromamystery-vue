@@ -21,7 +21,7 @@
             <tr v-for="item in cart.carts" :key="item.id">
               <td width="80"><img class="table-img" :src="item.product.imageUrl" alt="" /></td>
               <td class="text-primary">
-                {{ item.product.title }} <span class="d-block"> NT$ {{ item.product.price }}</span>
+                {{ item.product.title }} <span class="d-block"> NT$ {{ $cash(item.product.price) }}</span>
               </td>
               <td>
                 <input type="number" :disabled="item.id === cartLoadingItem" v-model.number="item.qty" @blur="updateCart(item)" min="1" max="30" class="form-control" inputmode="numeric" />
@@ -33,8 +33,12 @@
             </tr>
           </tbody>
           <tfoot>
-            <tr class="border-top-1">
-              <td colspan="5" class="text-end totalPrice">總金額 NT$ {{ cart.final_total }}</td>
+            <tr class="border-top">
+              <td v-if="cart.total === cart.final_total" colspan="5" class="text-end">總計金額： NT$ {{ $cash(cart.total) }}</td>
+              <td v-else colspan="5" class="text-end">
+                <del class="text-muted">總計金額： NT$ {{ $cash(cart.total) }}</del>
+                <span class="d-block">折扣後金額： NT$ {{ $cash(cart.final_total) }}</span>
+              </td>
             </tr>
           </tfoot>
         </table>

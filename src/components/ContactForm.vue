@@ -22,7 +22,7 @@
         <ErrorMessage name="留言" class="invalid-feedback" />
       </div>
       <div class="col-12 text-end">
-        <button @click="validate" class="btn btn-outline-light" type="submit" id="btn-form">送出表單</button>
+        <button @click="validate" class="btn btn-outline-primary" type="submit" id="btn-form">送出表單</button>
       </div>
     </div>
   </Form>
