@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="isLoading"></Loading>
   <div class="container" id="checkorder">
     <div class="row g-0 p-3 text-center" v-if="cart.total">
       <ul class="steps row g-0 list-unstyled mb-4">
@@ -136,7 +137,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(cartStore, ['cart'])
+    ...mapState(cartStore, ['cart']),
+    ...mapState(statusStore, ['isLoading'])
   },
   methods: {
     ...mapActions(cartStore, ['getCart']),
@@ -156,7 +158,7 @@ export default {
       const order = this.form
       this.$http.post(api, { data: order }).then((res) => {
         if (res.data.success) {
-          console.log(res.data)
+          this.getCart()
           resetForm()
           this.$router.push(`/checkout/${res.data.orderId}`)
         }

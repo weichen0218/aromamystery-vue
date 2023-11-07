@@ -74,7 +74,7 @@
             <p class="col" v-else>無</p>
           </li>
         </ul>
-        <button type="submit" class="btn btn-primary w-100 py-3 mt-5" v-if="!order.is_paid" @click="payOrder">信用卡付款</button>
+        <button type="submit" class="btn btn-primary text-white w-100 py-3 mt-5" v-if="!order.is_paid" @click="payOrder">信用卡付款</button>
       </div>
     </div>
   </div>
@@ -136,6 +136,8 @@
 </template>
 
 <script>
+import statusStore from '@/stores/statusStore.js'
+import { mapState, mapActions } from 'pinia'
 export default {
   data() {
     return {
@@ -145,16 +147,19 @@ export default {
       isLoading: false
     }
   },
+  computed: {
+    ...mapState(statusStore, ['isLoading'])
+  },
   methods: {
     getOrder() {
+      this.isLoading = true
       const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/order/${this.orderId}`
       this.$http.get(url).then((res) => {
+        this.isLoading = false
         if (res.data.success) {
           this.order = res.data.order
           this.order.time = new Date(this.order.create_at * 1000).toLocaleString('zh-TW', { hour12: false })
           this.user = this.order.user
-          console.log(this.order)
-          console.log(this.order.time)
         }
       })
     },
