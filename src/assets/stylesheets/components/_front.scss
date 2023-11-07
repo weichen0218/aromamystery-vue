@@ -21,3 +21,14 @@
 .steps li .ls-3 {
   letter-spacing: 3px;
 }
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
+  transition-delay: 0.25s;
+}
+.fade-out {
+  opacity: 0;
+  transform: translateY(10%);
+  transition: all 1s;
+}

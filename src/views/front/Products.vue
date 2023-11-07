@@ -2,20 +2,6 @@
   <Loading :active="isLoading"></Loading>
   <section class="container py-5" id="product">
     <h2 class="text-center mb-4">所有課程</h2>
-    <!-- <ul class="category list-unstyled d-flex justify-content-center mb-4">
-      <li class="btn btn-outline-primary p-0 active">
-        <router-link aria-current="page" href="" class="router-link-active active px-3 px-md-4 py-1"> 全部課程 </router-link>
-      </li>
-      <li class="btn btn-outline-primary p-0 ms-1">
-        <router-link aria-current="page" href="" class="router-link-active active px-3 px-md-4 py-1">初階課程</router-link>
-      </li>
-      <li class="btn btn-outline-primary p-0 ms-1">
-        <router-link aria-current="page" href="" class="router-link-active active px-3 px-md-4 py-1">中階課程</router-link>
-      </li>
-      <li class="btn btn-outline-primary p-0 ms-1">
-        <router-link aria-current="page" href="" class="router-link-active active px-3 px-md-4 py-1">進階課程</router-link>
-      </li>
-    </ul> -->
     <!-- <ul class="category list-unstyled d-flex justify-content-center mt-4">
       <li class="btn btn-outline-primary p-0" :class="isActive === 'all' ? 'active' : ''" @click="filterProducts(1, 'all'), (isActive = 'all')" v-if="products.length > 0">
         <router-link class="px-3 px-md-4 py-1" :to="{ query: { category: 'all', page: 1 } }"> 全部 </router-link>

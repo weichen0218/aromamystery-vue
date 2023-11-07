@@ -30,7 +30,7 @@ export default defineStore('cartStore', {
       axios.get(url).then((res) => {
         this.cart = res.data.data
         status.isLoading = false
-        console.log(res)
+        // console.log(res)
       })
     },
     updateCart(item) {
@@ -74,5 +74,7 @@ export default defineStore('cartStore', {
       })
     }
   },
-  getters: {}
+  getters: {
+    getCartItems: (state) => state.cart.carts
+  }
 })

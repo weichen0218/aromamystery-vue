@@ -56,7 +56,7 @@
             </div>
 
             <div class="mb-3 col-12">
-              <button class="btn btn-lg btn-light w-100 fs-6"><img src="src/assets/image/google.png" style="width: 20px" class="me-2" /><small>Sign In with Google</small></button>
+              <button class="btn btn-lg btn-light w-100 fs-6"><img src="@/assets/image/google.png" style="width: 20px" class="me-2" /><small>Sign In with Google</small></button>
             </div>
           </Form>
           <div class="col-12">

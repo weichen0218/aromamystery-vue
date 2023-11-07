@@ -1,5 +1,5 @@
 <template>
-  <Form v-slot="{ errors, validate }" @submit="onSubmit" id="contact" class="col-md-6 col-lg-5 needs-validation" novalidate autocomplete="on">
+  <Form v-slot="{ errors, validate }" @submit="onSubmit" id="contact" class="needs-validation" novalidate autocomplete="on">
     <div class="row g-3">
       <div class="col-md-6">
         <label for="name" class="form-label">姓名 *</label>
@@ -21,8 +21,8 @@
         <Field as="textarea" id="message" name="留言" type="text" rules="required" class="form-control" :class="{ 'is-invalid': errors['留言'] }" rows="3" v-model="user.message" />
         <ErrorMessage name="留言" class="invalid-feedback" />
       </div>
-      <div class="col-12 text-end">
-        <button @click="validate" class="btn btn-outline-primary" type="submit" id="btn-form">送出表單</button>
+      <div class="col-12 text-start">
+        <button @click="validate" class="btn btn-primary text-white w-50" type="submit" id="btn-form">送出表單</button>
       </div>
     </div>
   </Form>
