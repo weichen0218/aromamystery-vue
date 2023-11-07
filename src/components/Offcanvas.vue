@@ -82,6 +82,9 @@ export default {
       this.$router.push('/checkorder')
     }
   },
+  created() {
+    this.getCart()
+  },
   mounted() {
     this.newOffcanvasInstance(this.$refs.offcanvas)
   }

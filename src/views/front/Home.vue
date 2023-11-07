@@ -147,13 +147,10 @@ export default {
   },
   methods: {
     ...mapActions(productStore, ['getAllProducts']),
-    ...mapActions(cartStore, ['getCart']),
     ...mapActions(statusStore, ['resetMessage'])
   },
   created() {
     this.getAllProducts()
-    this.getCart()
-    console.log('this cart1:', this.cart)
   },
   beforeUnmount() {
     this.resetMessage()
