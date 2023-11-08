@@ -1,1 +1,0 @@
-import{d as o}from"./index-57352e28.js";const n=o("statusStore",{state:()=>({isLoading:!1,cartLoadingItem:"",messages:[]}),actions:{pushMessage(s){const{style:e,title:t,content:a}=s;this.messages.push({style:e,title:t,content:a})},resetMessage(){this.messages=[]}}});export{n as s};
