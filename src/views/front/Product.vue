@@ -29,7 +29,7 @@
                   type="number"
                   class="productInput text-center flex-grow-1 form-control"
                   min="1"
-                  :max="maxNum"
+                  :max="available"
                   inputmode="numeric"
                   @blur="blurInput"
                   :disabled="is_max"
@@ -105,7 +105,7 @@ export default {
   data() {
     return {
       id: '',
-      maxNum: 0,
+      available: 0,
       is_max: false,
       tempNum: 1
     }
@@ -119,7 +119,7 @@ export default {
     ...mapActions(productStore, ['getProduct']),
     ...mapActions(cartStore, ['getCart', 'addToCart']),
     increment() {
-      if (this.tempNum < this.maxNum) {
+      if (this.tempNum < this.available) {
         this.tempNum++
       }
     },
@@ -129,46 +129,40 @@ export default {
       }
     },
     getMaxNum() {
-      const inCart = this.cart.carts.filter((item) => this.id === item.product_id)
-      if (!inCart) {
-        this.maxNum = 30
-        return
-      }
-      if (inCart.length > 0) {
-        this.maxNum = 30 - inCart[0].qty
-      } else {
-        this.maxNum = 30
-      }
-      if (this.maxNum <= 0) {
-        this.is_max = true
-      } else {
-        this.is_max = false
-      }
+      const inCart = this.cart.carts.find((item) => this.id === item.product_id)
+      const quantityInCart = inCart ? inCart.qty : 0
+      const availableSpace = 30 - quantityInCart
+      this.is_max = availableSpace <= 0
+      this.available = this.is_max ? 0 : availableSpace
     },
     blurInput() {
       if (this.tempNum < 1) {
         this.tempNum = 1
-      } else if (this.tempNum > this.maxNum) {
-        this.tempNum = this.maxNum
+      } else if (this.tempNum > this.available) {
+        this.tempNum = this.available
       }
     }
   },
   watch: {
-    tempNum: {
-      handler(val) {
-        if (val > this.maxNum) {
-          this.tempNum = this.maxNum
-        }
-      },
-      deep: true
-    },
-    getCartItems() {
+    cart() {
+      console.log('cart changed')
       this.getMaxNum()
+      if (this.is_max) {
+        this.tempNum = 1
+      }
     }
+
+    // getCartItems() {
+    //   this.getMaxNum()
+    //   if (this.is_max) {
+    //     this.tempNum = 1
+    //   }
+    // }
   },
-  created() {
+  async created() {
     this.id = this.$route.params.id
     this.getProduct(this.id)
+    await this.getCart()
     this.getMaxNum()
   }
 }
