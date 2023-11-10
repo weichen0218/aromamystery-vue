@@ -134,12 +134,16 @@ export default {
       console.log('id:', this.id)
       const inCart = this.cart.carts.find((item) => this.id === item.product_id)
       console.log('inCart:', inCart)
+      console.log(this.cart.carts)
+
       const quantityInCart = inCart ? inCart.qty : 0
       const availableSpace = 30 - quantityInCart
       this.is_max = availableSpace <= 0
       this.available = this.is_max ? 0 : availableSpace
       console.log('is_max:', this.is_max)
       console.log('available:', this.available)
+      console.log(this.is_max)
+      console.log(this.available)
     },
     blurInput() {
       if (this.tempNum < 1) {
