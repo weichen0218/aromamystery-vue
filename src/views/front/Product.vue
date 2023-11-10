@@ -139,7 +139,6 @@ export default {
       this.is_max = availableSpace <= 0
       this.available = this.is_max ? 0 : availableSpace
       console.log('is_max:', this.is_max)
-      console.log('available:', this.available)
     },
     blurInput() {
       if (this.tempNum < 1) {
