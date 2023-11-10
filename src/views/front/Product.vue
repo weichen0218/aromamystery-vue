@@ -133,13 +133,10 @@ export default {
     getMaxNum() {
       console.log('id:', this.id)
       const inCart = this.cart.carts.find((item) => this.id === item.product_id)
-      console.log('inCart:', inCart)
       const quantityInCart = inCart ? inCart.qty : 0
       const availableSpace = 30 - quantityInCart
       this.is_max = availableSpace <= 0
       this.available = this.is_max ? 0 : availableSpace
-      console.log('is_max:', this.is_max)
-      console.log('available:', this.available)
     },
     blurInput() {
       if (this.tempNum < 1) {
@@ -156,6 +153,7 @@ export default {
   watch: {
     cart: {
       handler() {
+        this.id = this.$route.params.id
         this.getMaxNum()
       },
       immediate: true
