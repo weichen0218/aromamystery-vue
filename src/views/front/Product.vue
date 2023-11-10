@@ -37,7 +37,9 @@
                 />
                 <button class="btn p-2 border text-dark" @click.prevent="increment"><i class="bi bi-plus-lg"></i></button>
               </div>
-              <button class="btn btn-primary text-white fw-bold w-50 ms-2" type="button" @click="addToCart(id, tempNum)" :disabled="product.id === cartLoadingItem || is_max">加入購物車</button>
+              <button class="btn btn-primary text-white fw-bold w-50 ms-2" type="button" @click="addToCartAndResetInput(id, tempNum)" :disabled="product.id === cartLoadingItem || is_max">
+                加入購物車
+              </button>
             </div>
             <p v-if="is_max" class="mt-2 text-danger d-block">已達可購買最大數量</p>
             <!-- <div class="d-flex mt-3">
@@ -105,7 +107,7 @@ export default {
   data() {
     return {
       id: '',
-      available: 0,
+      available: 30,
       is_max: false,
       tempNum: 1
     }
@@ -130,10 +132,14 @@ export default {
     },
     getMaxNum() {
       const inCart = this.cart.carts.find((item) => this.id === item.product_id)
+      console.log(this.cart.carts)
+
       const quantityInCart = inCart ? inCart.qty : 0
       const availableSpace = 30 - quantityInCart
       this.is_max = availableSpace <= 0
       this.available = this.is_max ? 0 : availableSpace
+      console.log(this.is_max)
+      console.log(this.available)
     },
     blurInput() {
       if (this.tempNum < 1) {
@@ -141,29 +147,23 @@ export default {
       } else if (this.tempNum > this.available) {
         this.tempNum = this.available
       }
+    },
+    addToCartAndResetInput(id, tempNum) {
+      this.addToCart(id, tempNum)
+      this.tempNum = 1
     }
   },
   watch: {
-    cart() {
-      console.log('cart changed')
-      this.getMaxNum()
-      if (this.is_max) {
-        this.tempNum = 1
-      }
+    cart: {
+      handler() {
+        this.getMaxNum()
+      },
+      immediate: true
     }
-
-    // getCartItems() {
-    //   this.getMaxNum()
-    //   if (this.is_max) {
-    //     this.tempNum = 1
-    //   }
-    // }
   },
-  async created() {
+  created() {
     this.id = this.$route.params.id
     this.getProduct(this.id)
-    await this.getCart()
-    this.getMaxNum()
   }
 }
 </script>
