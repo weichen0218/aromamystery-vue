@@ -34,7 +34,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import ToastMessage from '@/components/ToastMessage.vue'
-// import Lenis from '@studio-freight/lenis'
+import Lenis from '@studio-freight/lenis'
 export default {
   data() {
     return {
@@ -54,15 +54,15 @@ export default {
     }
   },
   mounted() {
-    // const lenis = new Lenis()
-    // lenis.on('scroll', (e) => {
-    //   console.log(e)
-    // })
-    // function raf(time) {
-    //   lenis.raf(time)
-    //   requestAnimationFrame(raf)
-    // }
-    // requestAnimationFrame(raf)
+    const lenis = new Lenis()
+    lenis.on('scroll', (e) => {
+      console.log(e)
+    })
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
     window.addEventListener('scroll', this.showScrollBtn)
   },
   unmounted() {
@@ -71,7 +71,7 @@ export default {
 }
 </script>
 <style>
-/* html.lenis {
+html.lenis {
   height: auto;
 }
 
@@ -89,5 +89,5 @@ export default {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
-} */
+}
 </style>
