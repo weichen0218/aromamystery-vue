@@ -71,7 +71,7 @@ export default {
 }
 </script>
 <style>
-html.lenis {
+/* html.lenis {
   height: auto;
 }
 
@@ -89,6 +89,5 @@ html.lenis {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
-}
+} */
 </style>
-../../stores/lenisStore
