@@ -23,14 +23,13 @@
   box-shadow: none;
   transition: background-image 0.5s;
 }
-.navbar-toggler {
-  .navbar-toggler-icon {
-    background-image: url('/image/x-lg.svg');
-  }
-}
-
-.navbar-toggler.collapsed {
+.navbar-toggler[aria-expanded='false'] {
   .navbar-toggler-icon {
     background-image: url('/image/list.svg');
+  }
+}
+.navbar-toggler[aria-expanded='true'] {
+  .navbar-toggler-icon {
+    background-image: url('/image/x-lg.svg');
   }
 }

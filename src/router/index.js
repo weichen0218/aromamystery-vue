@@ -1,10 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
+// import Lenis from '@studio-freight/lenis'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   linkExactActiveClass: 'active',
   scrollBehavior() {
+    // const lenis = new Lenis()
+    // lenis.scrollTo({ top: 0, behavior: 'smooth' })
     return {
+      // lenis.scrollTo({top: 0, behavior: 'smooth'});
       top: 0,
       behavior: 'smooth'
     }

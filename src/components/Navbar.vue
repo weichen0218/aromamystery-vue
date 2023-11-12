@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg sticky-top" id="navbar">
     <div class="container">
-      <button class="navbar-toggler collapsed" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" @click.prevent="toggleCollapse">
+      <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" :aria-expanded="isDropdownOpen" aria-label="Toggle navigation" @click.prevent="toggleCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div>
@@ -20,16 +20,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent" ref="collapse">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item mx-2">
-            <router-link to="/about" class="nav-link" @click.prevent="hideCollapse">關於我們</router-link>
+            <router-link to="/about" class="nav-link" @click="hideCollapse">關於我們</router-link>
           </li>
           <li class="nav-item mx-2">
-            <router-link to="/products" class="nav-link" @click.prevent="hideCollapse">課程列表</router-link>
+            <router-link to="/products" class="nav-link" @click="hideCollapse">課程列表</router-link>
           </li>
           <li class="nav-item mx-2">
-            <router-link to="/service" class="nav-link" @click.prevent="hideCollapse">常見問題</router-link>
+            <router-link to="/service" class="nav-link" @click="hideCollapse">常見問題</router-link>
           </li>
           <li class="nav-item mx-2">
-            <router-link to="/contact" class="nav-link" @click.prevent="hideCollapse">聯絡我們</router-link>
+            <router-link to="/contact" class="nav-link" @click="hideCollapse">聯絡我們</router-link>
           </li>
         </ul>
       </div>
@@ -46,7 +46,7 @@ import uiStore from '@/stores/uiStore'
 import { mapState, mapActions } from 'pinia'
 export default {
   data() {
-    return { Collapse: null }
+    return { Collapse: null, isDropdownOpen: false }
   },
   components: { Offcanvas },
   computed: {
@@ -57,9 +57,11 @@ export default {
     ...mapActions(uiStore, ['openOffcanvas', 'closeOffcanvas']),
     toggleCollapse() {
       this.Collapse.toggle()
+      this.isDropdownOpen = !this.isDropdownOpen
     },
     hideCollapse() {
       this.Collapse.hide()
+      this.isDropdownOpen = false
     }
   },
   mounted() {

@@ -114,7 +114,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 import SplitType from 'split-type'
-import Lenis from '@studio-freight/lenis'
 
 export default {
   data() {
@@ -192,16 +191,6 @@ export default {
     this.getAllProducts()
   },
   mounted() {
-    // BUG
-    // const lenis = new Lenis()
-    // lenis.on('scroll', (e) => {
-    //   console.log(e)
-    // })
-    // function raf(time) {
-    //   lenis.raf(time)
-    //   requestAnimationFrame(raf)
-    // }
-    // requestAnimationFrame(raf)
     const text = new SplitType('.hero-primary')
     gsap.set('.hero-primary', { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' })
     gsap.set('.char', { y: 100 })
