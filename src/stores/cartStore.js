@@ -25,7 +25,6 @@ export default defineStore('cartStore', {
       })
     },
     getCart() {
-      console.log('getCart')
       const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/cart`
       status.isLoading = true
       axios.get(url).then((res) => {

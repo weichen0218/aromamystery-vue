@@ -131,7 +131,6 @@ export default {
       }
     },
     getMaxNum() {
-      console.log('id:', this.id)
       const inCart = this.cart.carts.find((item) => this.id === item.product_id)
       const quantityInCart = inCart ? inCart.qty : 0
       const availableSpace = 30 - quantityInCart
@@ -160,7 +159,7 @@ export default {
     }
   },
   created() {
-    this.id = this.$route.params.id
+    // this.id = this.$route.params.id
     this.getProduct(this.id)
   }
 }

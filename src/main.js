@@ -14,6 +14,7 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 // vue-loading-overlay
 import Loading from 'vue3-loading-overlay'
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
+
 defineRule('required', required)
 defineRule('email', email)
 defineRule('min', min)

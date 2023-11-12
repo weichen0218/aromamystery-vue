@@ -3,13 +3,15 @@
   <header>
     <section id="home" class="header px-4 py-5 d-flex justify-content-center align-items-center" :style="{ backgroundImage: heroBackground }">
       <div class="text-center text-white">
-        <p class="fs-5">你是不是也有夢想</p>
-        <h1 class="fw-bold">想成為一位芳療師</h1>
-        <p>
-          你是否渴望在繁忙的現代生活中找到一份舒緩和平靜？<br />
-          我們的精油課程將帶你進入精油的奇妙世界，<br />
-          讓你從中獲得健康、平衡和幸福。
-        </p>
+        <div class="hero-text-box">
+          <p class="fs-5">你是不是也有夢想</p>
+          <h1 class="fw-bold hero-primary">想成為一位芳療師</h1>
+          <p>
+            你是否渴望在繁忙的現代生活中找到一份舒緩和平靜？<br />
+            我們的精油課程將帶你進入精油的奇妙世界，<br />
+            讓你從中獲得健康、平衡和幸福。
+          </p>
+        </div>
         <router-link to="/products" class="btn btn-outline-primary text-white border-white">探索精油之美&nbsp;<i class="bi bi-arrow-right"></i></router-link>
       </div>
     </section>
@@ -41,14 +43,14 @@
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="py-5" id="trouble">
-      <div class="container">
-        <h2 class="text-center mb-4">你有這些煩惱嗎？</h2>
-        <ul class="row row-cols-1 row-cols-lg-4 g-3 g-lg-4 list-unstyled">
-          <trouble-card v-for="trouble in troubles" :key="trouble.id" :icon="trouble.icon" :title="trouble.title" :description="trouble.description"></trouble-card>
-        </ul>
-      </div>
+  <section id="trouble">
+    <div class="container py-5">
+      <h2 class="text-center mb-4">你有這些煩惱嗎？</h2>
+      <ul class="row row-cols-1 row-cols-lg-4 g-3 g-lg-4 list-unstyled">
+        <trouble-card v-for="trouble in troubles" :key="trouble.id" :icon="trouble.icon" :title="trouble.title" :description="trouble.description"></trouble-card>
+      </ul>
     </div>
   </section>
 
@@ -70,14 +72,17 @@
       </div>
     </div>
   </section>
+  <section id="testimonial">
+    <div class="container py-5">
+      <Testimonial />
+    </div>
+  </section>
 
-  <Testimonial />
-
-  <section class="container py-5" id="price">
+  <section class="container py-5" id="popularCourse">
     <h2 class="text-center mb-4">熱門課程</h2>
     <div class="row g-4 pb-5">
       <price-card
-        v-for="(product, index) in sortProducts"
+        v-for="(product, index) in initialProducts"
         :key="index"
         :id="product.id"
         :title="product.title"
@@ -94,12 +99,9 @@
 <script>
 import Header from '@/components/Header.vue'
 import SuccessModal from '@/components/SuccessModal.vue'
-
 import LoginModal from '@/components/LoginModal.vue'
-
 import Info from '@/components/Info.vue'
 import Testimonial from '@/components/Testimonial.vue'
-
 import PriceCard from '@/components/PriceCard.vue'
 import TroubleCard from '@/components/TroubleCard.vue'
 
@@ -107,6 +109,14 @@ import productStore from '@/stores/productStore.js'
 import cartStore from '@/stores/cartStore.js'
 import statusStore from '@/stores/statusStore.js'
 import { mapState, mapActions } from 'pinia'
+
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
+import SplitType from 'split-type'
+import Lenis from '@studio-freight/lenis'
+// import 'https://assets.codepen.io/16327/ScrollSmoother.min.js?v=94387867'
+
 export default {
   data() {
     return {
@@ -137,7 +147,38 @@ export default {
           title: '不會分辨真假',
           description: '市場上有許多假冒產品，無法辨別出高品質的精油'
         }
+      ],
+      initialProducts: [
+        {
+          id: '1',
+          title: 'Product 1',
+          content: 'Product 1 description',
+          imageUrl: 'default-image-url',
+          price: 0,
+          origin_price: 0
+        },
+        {
+          id: '2',
+          title: 'Product 2',
+          content: 'Product 2 description',
+          imageUrl: 'default-image-url',
+          price: 0,
+          origin_price: 0
+        },
+        {
+          id: '3',
+          title: 'Product 3',
+          content: 'Product 3 description',
+          imageUrl: 'default-image-url',
+          price: 0,
+          origin_price: 0
+        }
       ]
+    }
+  },
+  watch: {
+    sortProducts() {
+      this.initialProducts = this.sortProducts
     }
   },
   computed: {
@@ -151,6 +192,79 @@ export default {
   },
   created() {
     this.getAllProducts()
+  },
+  mounted() {
+    // BUG
+    // const lenis = new Lenis()
+    // lenis.on('scroll', (e) => {
+    //   console.log(e)
+    // })
+    // function raf(time) {
+    //   lenis.raf(time)
+    //   requestAnimationFrame(raf)
+    // }
+    // requestAnimationFrame(raf)
+    const text = new SplitType('.hero-primary')
+    gsap.set('.hero-primary', { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' })
+    gsap.set('.char', { y: 100 })
+    gsap.to('.char', { y: 0, stagger: 0.1, delay: 0.2, duration: 0.5 })
+    gsap.set('#info', { opacity: 0, y: 100 })
+    gsap.to('#info', {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '#info',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+    gsap.set(['#trouble h2', '#trouble .col'], { opacity: 0, x: 100 })
+    gsap.to(['#trouble h2', '#trouble .col'], {
+      x: 0,
+      opacity: 1,
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: '#trouble',
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true
+      }
+    })
+    gsap.set('#course', { opacity: 0, y: 100 })
+    gsap.to('#course', {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '#course',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+    gsap.set('#testimonial', { opacity: 0, y: 100 })
+    gsap.to('#testimonial', {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '#testimonial',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+    gsap.set(['#popularCourse h2', '#popularCourse .col-md-6'], { opacity: 0, x: 100 })
+    gsap.to(['#popularCourse h2', '#popularCourse .col-md-6'], {
+      x: 0,
+      opacity: 1,
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: '#popularCourse',
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true
+      }
+    })
   },
   beforeUnmount() {
     this.resetMessage()

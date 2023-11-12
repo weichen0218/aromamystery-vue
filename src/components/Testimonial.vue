@@ -1,39 +1,35 @@
 <template>
-  <section class="py-5" id="testimonial">
-    <div class="container">
-      <h2 class="text-center mb-4">學員分享</h2>
-      <div id="carousel" class="carousel slide" ref="carousel">
-        <div class="carousel-indicators mb-0">
-          <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="bg-primary active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" class="bg-primary" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" class="bg-primary" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" class="bg-primary" aria-label="Slide 4"></button>
-          <button type="button" data-bs-target="#carousel" data-bs-slide-to="4" class="bg-primary" aria-label="Slide 5"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item" :class="{ active: index === 0 }" v-for="(person, index) in persons" :key="index">
-            <div class="row justify-content-center">
-              <div class="col-lg-10">
-                <div class="card border-0">
-                  <div class="card-body m-3">
-                    <share-card :person="person"></share-card>
-                  </div>
-                </div>
+  <h2 class="text-center mb-4">學員分享</h2>
+  <div id="carousel" class="carousel slide" ref="carousel">
+    <div class="carousel-indicators mb-0">
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="bg-primary active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" class="bg-primary" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" class="bg-primary" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" class="bg-primary" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="4" class="bg-primary" aria-label="Slide 5"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item" :class="{ active: index === 0 }" v-for="(person, index) in persons" :key="index">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="card border-0">
+              <div class="card-body m-3">
+                <share-card :person="person"></share-card>
               </div>
             </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bg-primary rounded-circle" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon bg-primary rounded-circle" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
       </div>
     </div>
-  </section>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bg-primary rounded-circle" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon bg-primary rounded-circle" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </template>
 
 <script>

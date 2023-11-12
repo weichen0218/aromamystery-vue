@@ -1,12 +1,12 @@
 <template>
   <section id="about" class="px-4 py-5 d-flex justify-content-center align-items-center min-vh-75 banner">
     <div class="text-box">
-      <h1 class="fw-bold">芳香秘境，生活寧靜</h1>
+      <h1 class="fw-bold hero-primary">芳香秘境，生活寧靜</h1>
     </div>
   </section>
   <div class="container">
     <div class="px-4 py-5">
-      <div class="row mb-5">
+      <div class="row mb-5 about-session1">
         <div class="col-12 col-lg-6 p-5 d-flex justify-content-center">
           <img src="@/assets/image/about01.jpg" alt="about-picture" class="img-fluid rounded" />
         </div>
@@ -16,7 +16,7 @@
           <p>從最初的小工作坊開始，我們就吸引了一群志同道合的學生。隨著時間的推移，我們不僅培育出許多優秀的學員，更見證了他們在自然療法和身心靈平衡領域的成長。</p>
         </div>
       </div>
-      <div class="row flex-md-row-reverse">
+      <div class="row flex-md-row-reverse about-session2">
         <div class="col-12 col-lg-6 p-5 d-flex justify-content-center">
           <img src="@/assets/image/about02.jpg" alt="about-picture" class="img-fluid rounded" />
         </div>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="px-4 py-5">
-      <div class="row d-flex justify-content-center">
+      <div class="row d-flex justify-content-center our-team1">
         <div class="col-md-10 col-xl-8 text-center">
           <h3 class="mb-4 text-primary">我們的團隊</h3>
           <p class="mb-4 pb-2 mb-md-5 pb-md-0">
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="row text-center d-flex align-items-stretch">
+      <div class="row text-center d-flex align-items-stretch our-team2">
         <div class="col-md-4 mb-5 mb-md-0 d-flex align-items-stretch">
           <div class="card testimonial-card">
             <div class="card-up" style="background-color: #ffd299"></div>
@@ -120,5 +120,60 @@
 }
 </style>
 <script>
-export default {}
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitType from 'split-type'
+gsap.registerPlugin(ScrollTrigger)
+export default {
+  mounted() {
+    const text = new SplitType('.hero-primary')
+    gsap.set('.hero-primary', { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' })
+    gsap.set('.char', { y: 100 })
+    gsap.to('.char', { y: 0, stagger: 0.1, delay: 0.2, duration: 0.5 })
+    gsap.set('.about-session1', { opacity: 0, x: 100 })
+    gsap.to('.about-session1', {
+      x: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '.about-session1',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+    gsap.set('.about-session2', { opacity: 0, x: -100 })
+    gsap.to('.about-session2', {
+      x: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '.about-session2',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+    gsap.set('.our-team1', { opacity: 0, y: 100 })
+    gsap.to('.our-team1', {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '.our-team1',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+    gsap.set('.our-team2', { opacity: 0, y: 100 })
+    gsap.to('.our-team2', {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: '.our-team2',
+        start: 'top 90%',
+        end: 'top 50%',
+        scrub: true
+      }
+    })
+  }
+}
 </script>
