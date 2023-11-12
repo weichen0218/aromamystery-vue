@@ -25,12 +25,12 @@
 }
 .navbar-toggler {
   .navbar-toggler-icon {
-    background-image: url(src/assets/image/x-lg.svg);
+    background-image: url('/image/x-lg.svg');
   }
 }
 
 .navbar-toggler.collapsed {
   .navbar-toggler-icon {
-    background-image: url(src/assets/image/list.svg);
+    background-image: url('/image/list.svg');
   }
 }
