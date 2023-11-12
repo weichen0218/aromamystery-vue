@@ -151,7 +151,7 @@ export default {
           id: '1',
           title: 'Product 1',
           content: 'Product 1 description',
-          imageUrl: 'default-image-url',
+          imageUrl: '',
           price: 0,
           origin_price: 0
         },
@@ -159,7 +159,7 @@ export default {
           id: '2',
           title: 'Product 2',
           content: 'Product 2 description',
-          imageUrl: 'default-image-url',
+          imageUrl: '',
           price: 0,
           origin_price: 0
         },
@@ -167,7 +167,7 @@ export default {
           id: '3',
           title: 'Product 3',
           content: 'Product 3 description',
-          imageUrl: 'default-image-url',
+          imageUrl: '',
           price: 0,
           origin_price: 0
         }
