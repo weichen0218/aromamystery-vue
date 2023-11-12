@@ -86,7 +86,7 @@
 </template>
 <style>
 .banner {
-  background-image: url('src/assets/image/banner01.jpg');
+  background-image: url('/image/banner01.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
