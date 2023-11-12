@@ -115,13 +115,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 import SplitType from 'split-type'
 import Lenis from '@studio-freight/lenis'
-// import 'https://assets.codepen.io/16327/ScrollSmoother.min.js?v=94387867'
 
 export default {
   data() {
     return {
-      heroBackground: 'linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("src/assets/image/hero03.jpg")',
-      troubleBackground: 'url("src/assets/image/bg_paper.png")',
+      heroBackground: 'linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2)), url("/image/hero03.jpg")',
       troubles: [
         {
           id: 1,
