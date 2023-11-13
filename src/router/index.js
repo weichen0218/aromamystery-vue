@@ -1,17 +1,25 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import Lenis from '@studio-freight/lenis'
+import lenisStore from '@/stores/lenisStore.js'
+
+// import { createPinia, useStore } from 'pinia'
+// import useLenisStore from '@/stores/lenisStore.js' // 請根據實際路徑調整
+
+// 創建 Pinia 實例
+// const pinia = createPinia()
+// const lenisStore = useLenisStore(pinia)
+
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   linkExactActiveClass: 'active',
   scrollBehavior() {
-    // const lenis = new Lenis()
-    // lenis.scrollTo({ top: 0, behavior: 'smooth' })
+    // console.log('lenisStore:', lenisStore.lenis)
+    // console.log(lenis.lenis)
     return {
-      // lenis.scrollTo({top: 0, behavior: 'smooth'});
       top: 0,
       behavior: 'smooth'
     }
   },
+
   routes: [
     {
       path: '/',
@@ -77,5 +85,16 @@ const router = createRouter({
     }
   ]
 })
-
+router.beforeEach((to) => {
+  const lenis = lenisStore()
+  if (lenis.lenis !== null) {
+    lenis.lenis.closeLenis()
+  }
+})
+router.afterEach(() => {
+  const lenis = lenisStore()
+  if (lenis.lenis !== null) {
+    lenis.lenis.openLenis()
+  }
+})
 export default router

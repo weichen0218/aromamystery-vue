@@ -34,7 +34,9 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import ToastMessage from '@/components/ToastMessage.vue'
-import Lenis from '@studio-freight/lenis'
+// import Lenis from '@studio-freight/lenis'
+import lenisStore from '@/stores/lenisStore'
+import { mapState, mapActions } from 'pinia'
 export default {
   data() {
     return {
@@ -45,24 +47,30 @@ export default {
     Navbar,
     ToastMessage
   },
+  computed: {
+    ...mapState(lenisStore, ['lenis'])
+  },
   methods: {
     showScrollBtn() {
+      console.log('lenis:', this.lenis)
       this.showBtn = window.scrollY >= 40
     },
     scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    },
+    ...mapActions(lenisStore, ['initLenis'])
   },
   mounted() {
-    const lenis = new Lenis()
-    lenis.on('scroll', (e) => {
-      console.log(e)
-    })
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-    requestAnimationFrame(raf)
+    this.initLenis()
+    // const lenis = new Lenis()
+    // lenis.on('scroll', (e) => {
+    //   console.log(e)
+    // })
+    // function raf(time) {
+    //   lenis.raf(time)
+    //   requestAnimationFrame(raf)
+    // }
+    // requestAnimationFrame(raf)
     window.addEventListener('scroll', this.showScrollBtn)
   },
   unmounted() {
