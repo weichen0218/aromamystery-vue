@@ -159,7 +159,6 @@ export default {
     }
   },
   created() {
-    // this.id = this.$route.params.id
     this.getProduct(this.id)
   }
 }

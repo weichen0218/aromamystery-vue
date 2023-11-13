@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     showScrollBtn() {
-      console.log('lenis:', this.lenis)
       this.showBtn = window.scrollY >= 40
     },
     scrollToTop() {
@@ -62,6 +61,7 @@ export default {
   },
   mounted() {
     this.initLenis()
+
     // const lenis = new Lenis()
     // lenis.on('scroll', (e) => {
     //   console.log(e)
