@@ -172,9 +172,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '.our-team2',
-        start: 'top 60%',
+        start: 'top 40%',
         end: 'top 20%',
         scrub: true,
+        markers: true,
         once: true
       }
     })
