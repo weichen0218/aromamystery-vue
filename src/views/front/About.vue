@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-    <div class="px-4 py-5">
-      <div class="row d-flex justify-content-center our-team1">
+    <div class="px-4 py-5 our-team">
+      <div class="row d-flex justify-content-center">
         <div class="col-md-10 col-xl-8 text-center">
           <h3 class="mb-4 text-primary">我們的團隊</h3>
           <p class="mb-4 pb-2 mb-md-5 pb-md-0">
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="row text-center d-flex align-items-stretch our-team2">
+      <div class="row text-center d-flex align-items-stretch">
         <div class="col-md-4 mb-5 mb-md-0 d-flex align-items-stretch">
           <div class="card testimonial-card">
             <div class="card-up" style="background-color: #ffd299"></div>
@@ -154,27 +154,16 @@ export default {
         once: true
       }
     })
-    gsap.set('.our-team1', { opacity: 0, y: 100 })
-    gsap.to('.our-team1', {
+    gsap.set('.our-team', { opacity: 0, y: 100 })
+    gsap.to('.our-team', {
       y: 0,
       opacity: 1,
       scrollTrigger: {
-        trigger: '.our-team1',
+        trigger: '.our-team',
         start: 'top 60%',
         end: 'top 20%',
         scrub: true,
-        once: true
-      }
-    })
-    gsap.set('.our-team2', { opacity: 0, y: 100 })
-    gsap.to('.our-team2', {
-      y: 0,
-      opacity: 1,
-      scrollTrigger: {
-        trigger: '.our-team2',
-        start: 'top 40%',
-        end: 'top 20%',
-        scrub: true,
+        markers: true,
         once: true
       }
     })
