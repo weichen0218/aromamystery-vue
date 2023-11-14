@@ -6,6 +6,7 @@ import VueAxios from 'vue-axios'
 import router from './router'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { cash } from './methods/filters'
+import lenis from './methods/lenis'
 // vee-validate
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate'
 import { required, email, min } from '@vee-validate/rules'
@@ -26,6 +27,7 @@ setLocale('zh_TW')
 
 const app = createApp(App)
 app.config.globalProperties.$cash = cash
+app.provide('lenis', lenis)
 app.component('Form', Form)
 app.component('Field', Field)
 app.component('ErrorMessage', ErrorMessage)

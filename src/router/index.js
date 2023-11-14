@@ -1,25 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import lenisStore from '@/stores/lenisStore.js'
-
-// import { createPinia, useStore } from 'pinia'
-// import useLenisStore from '@/stores/lenisStore.js' // 請根據實際路徑調整
-
-// 創建 Pinia 實例
-// const pinia = createPinia()
-// const lenisStore = useLenisStore(pinia)
+import { inject } from 'vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   linkExactActiveClass: 'active',
   scrollBehavior() {
-    // console.log('lenisStore:', lenisStore.lenis)
-    // console.log(lenis.lenis)
     return {
+      el: '#app', //  確保可以回到 #app 上方
       top: 0,
       behavior: 'smooth'
     }
   },
-
   routes: [
     {
       path: '/',
@@ -85,16 +76,11 @@ const router = createRouter({
     }
   ]
 })
-router.beforeEach((to) => {
-  const lenis = lenisStore()
-  if (lenis.lenis !== null) {
-    lenis.lenis.closeLenis()
-  }
-})
+
 router.afterEach(() => {
-  const lenis = lenisStore()
-  if (lenis.lenis !== null) {
-    lenis.lenis.openLenis()
-  }
+  const lenis = inject('lenis')
+  if (lenis === null) return
+  lenis.stop()
+  lenis.start()
 })
 export default router
