@@ -201,9 +201,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '#info',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
     gsap.set(['#trouble h2', '#trouble .col'], { opacity: 0, x: 100 })
@@ -215,7 +216,8 @@ export default {
         trigger: '#trouble',
         start: 'top 60%',
         end: 'top 20%',
-        scrub: true
+        scrub: true,
+        once: true
       }
     })
     gsap.set('#course', { opacity: 0, y: 100 })
@@ -224,9 +226,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '#course',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
     gsap.set('#testimonial', { opacity: 0, y: 100 })
@@ -235,9 +238,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '#testimonial',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
     gsap.set(['#popularCourse h2', '#popularCourse .col-md-6'], { opacity: 0, x: 100 })
@@ -249,7 +253,8 @@ export default {
         trigger: '#popularCourse',
         start: 'top 60%',
         end: 'top 20%',
-        scrub: true
+        scrub: true,
+        once: true
       }
     })
   },

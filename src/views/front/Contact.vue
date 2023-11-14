@@ -58,10 +58,18 @@
 </style>
 <script>
 import ContactForm from '@/components/ContactForm.vue'
+import gsap from 'gsap'
 export default {
+  components: { 'contact-form': ContactForm },
   data() {
     return {}
   },
-  components: { 'contact-form': ContactForm }
+  mounted() {
+    gsap.set('#contact', { opacity: 0 })
+    gsap.to('#contact', {
+      opacity: 1,
+      delay: 0.5
+    })
+  }
 }
 </script>

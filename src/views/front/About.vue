@@ -136,9 +136,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '.about-session1',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
     gsap.set('.about-session2', { opacity: 0, x: -100 })
@@ -147,9 +148,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '.about-session2',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
     gsap.set('.our-team1', { opacity: 0, y: 100 })
@@ -158,9 +160,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '.our-team1',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
     gsap.set('.our-team2', { opacity: 0, y: 100 })
@@ -169,9 +172,10 @@ export default {
       opacity: 1,
       scrollTrigger: {
         trigger: '.our-team2',
-        start: 'top 90%',
-        end: 'top 50%',
-        scrub: true
+        start: 'top 60%',
+        end: 'top 20%',
+        scrub: true,
+        once: true
       }
     })
   }

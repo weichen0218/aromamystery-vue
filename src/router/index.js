@@ -6,7 +6,7 @@ const router = createRouter({
   linkExactActiveClass: 'active',
   scrollBehavior() {
     return {
-      el: '#app', //  確保可以回到 #app 上方
+      el: '#app',
       top: 0,
       behavior: 'smooth'
     }
@@ -14,23 +14,23 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/front/Index.vue'),
+      component: () => import('@/views/front/Index.vue'),
       children: [
         {
           path: '/',
-          component: () => import('../views/front/Home.vue')
+          component: () => import('@/views/front/Home.vue')
         },
         {
           path: '/about',
-          component: () => import('../views/front/About.vue')
+          component: () => import('@/views/front/About.vue')
         },
         {
           path: '/service',
-          component: () => import('../views/front/Service.vue')
+          component: () => import('@/views/front/Service.vue')
         },
         {
           path: '/contact',
-          component: () => import('../views/front/Contact.vue')
+          component: () => import('@/views/front/Contact.vue')
         },
         {
           path: '/products',
@@ -44,35 +44,40 @@ const router = createRouter({
         },
         {
           path: '/checkorder',
-          component: () => import('../views/front/Checkorder.vue')
+          component: () => import('@/views/front/Checkorder.vue')
         },
         {
           path: '/checkout/:orderId',
-          component: () => import('../views/front/Checkout.vue')
+          component: () => import('@/views/front/Checkout.vue')
         }
       ]
     },
     {
       path: '/login',
-      component: () => import('../views/admin/Login.vue')
+      component: () => import('@/views/admin/Login.vue')
     },
     {
       path: '/admin',
-      component: () => import('../views/admin/Dashboard.vue'),
+      component: () => import('@/views/admin/Dashboard.vue'),
       children: [
         {
           path: 'products',
-          component: () => import('../views/admin/Products.vue')
+          component: () => import('@/views/admin/Products.vue')
         },
         {
           path: 'coupons',
-          component: () => import('../views/admin/Coupons.vue')
+          component: () => import('@/views/admin/Coupons.vue')
         },
         {
           path: 'orders',
           component: () => import('@/views/admin/Orders.vue')
         }
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: '404',
+      component: () => import('@/views/Error.vue')
     }
   ]
 })

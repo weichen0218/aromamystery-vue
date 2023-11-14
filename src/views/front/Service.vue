@@ -31,6 +31,7 @@
   </section>
 </template>
 <script>
+import gsap from 'gsap'
 export default {
   data() {
     return {
@@ -66,6 +67,13 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    gsap.set('#service', { opacity: 0 })
+    gsap.to('#service', {
+      opacity: 1,
+      delay: 0.5
+    })
   }
 }
 </script>
