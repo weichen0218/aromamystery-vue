@@ -81,7 +81,10 @@ const router = createRouter({
     }
   ]
 })
-
+router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0)
+  next()
+})
 router.afterEach(() => {
   const lenis = inject('lenis')
   if (lenis === null) return
