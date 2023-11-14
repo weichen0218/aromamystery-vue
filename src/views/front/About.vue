@@ -163,7 +163,6 @@ export default {
         start: 'top 60%',
         end: 'top 20%',
         scrub: true,
-        markers: true,
         once: true
       }
     })
