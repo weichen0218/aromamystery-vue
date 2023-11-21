@@ -5,6 +5,7 @@ const status = statusStore()
 export default defineStore('productStore', {
   state: () => ({
     products: [],
+    pagination: {},
     product: {},
     category: []
   }),
@@ -17,7 +18,6 @@ export default defineStore('productStore', {
         const arry = this.products.map((item) => item.category)
         const newSet = new Set(arry)
         this.category = [...newSet]
-        // console.log(this.category)
         status.isLoading = false
       })
     },
@@ -26,7 +26,15 @@ export default defineStore('productStore', {
       status.isLoading = true
       axios.get(api).then((res) => {
         this.product = res.data.product
-        // console.log(this.product)
+        status.isLoading = false
+      })
+    },
+    getProducts(page = 1) {
+      const api = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/products?page=${page}`
+      status.isLoading = true
+      axios.get(api).then((res) => {
+        this.products = res.data.products
+        this.pagination = res.data.pagination
         status.isLoading = false
       })
     }
