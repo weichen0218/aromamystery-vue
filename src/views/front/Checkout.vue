@@ -1,5 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
+  <!-- <div v-html="receivedHTML"></div> -->
   <div class="container" id="checkout">
     <div class="row g-0 p-3 text-center" v-if="order.id">
       <ul class="steps row g-0 list-unstyled mb-4">
@@ -78,77 +79,19 @@
       </div>
     </div>
   </div>
-  <!-- <div class="my-5 row justify-content-center">
-    <form class="col-md-6" @submit.prevent="payOrder">
-      <table class="table align-middle">
-        <thead>
-          <th>品名</th>
-          <th>數量</th>
-          <th>單價</th>
-        </thead>
-        <tbody>
-          <tr v-for="item in order.products" :key="item.id">
-            <td>{{ item.product.title }}</td>
-            <td>{{ item.qty }}/{{ item.product.unit }}</td>
-            <td class="text-end">{{ $cash(item.product.price) }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2" class="text-end">總計</td>
-            <td class="text-end">{{ $cash(order.total) }}</td>
-          </tr>
-        </tfoot>
-      </table>
-
-      <table class="table">
-        <tbody>
-          <tr>
-            <th width="100">Email</th>
-            <td>{{ user.email }}</td>
-          </tr>
-          <tr>
-            <th>姓名</th>
-            <td>{{ user.name }}</td>
-          </tr>
-          <tr>
-            <th>收件人電話</th>
-            <td>{{ user.tel }}</td>
-          </tr>
-          <tr>
-            <th>收件人地址</th>
-            <td>{{ user.address }}</td>
-          </tr>
-          <tr>
-            <th>付款狀態</th>
-            <td>
-              <span v-if="!order.is_paid">尚未付款</span>
-              <span v-else class="text-success">付款完成</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="text-end" v-if="order.is_paid === false">
-        <button class="btn btn-danger">確認付款去</button>
-      </div>
-    </form>
-  </div> -->
 </template>
 
 <script>
-import statusStore from '@/stores/statusStore.js'
-import { mapState, mapActions } from 'pinia'
 export default {
   data() {
     return {
+      // receivedHTML: '',
       order: {},
       user: {},
       orderId: '',
+      code: '',
       isLoading: false
     }
-  },
-  computed: {
-    ...mapState(statusStore, ['isLoading'])
   },
   methods: {
     getOrder() {
@@ -164,18 +107,33 @@ export default {
       })
     },
     payOrder() {
+      this.isLoading = true
       const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/pay/${this.orderId}`
       this.$http.post(url).then((res) => {
-        console.log(res)
+        this.isLoading = false
         if (res.data.success) {
           this.getOrder()
         }
       })
     }
+    // pay() {
+    //   const url = 'https://ecpay-v06q.onrender.com'
+    //   const orderData = {
+    //     product: '精油課程',
+    //     price: this.order.total.toString()
+    //   }
+    //   this.$http.post(url, orderData).then((res) => {
+    //     if (res.data.success) {
+    //       this.receivedHTML = res.data.data
+    //       this.$nextTick(() => {
+    //         document.getElementById('_form_aiochk').submit()
+    //       })
+    //     }
+    //   })
+    // }
   },
   created() {
     this.orderId = this.$route.params.orderId
-    console.log(this.order)
     this.getOrder()
   }
 }
