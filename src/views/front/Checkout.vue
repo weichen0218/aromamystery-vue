@@ -1,6 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <!-- <div v-html="receivedHTML"></div> -->
+  <div v-html="receivedHTML"></div>
   <div class="container" id="checkout">
     <div class="row g-0 p-3 text-center" v-if="order.id">
       <ul class="steps row g-0 list-unstyled mb-4">
@@ -85,7 +85,7 @@
 export default {
   data() {
     return {
-      // receivedHTML: '',
+      receivedHTML: '',
       order: {},
       user: {},
       orderId: '',
@@ -107,30 +107,31 @@ export default {
       })
     },
     payOrder() {
-      this.isLoading = true
-      const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/pay/${this.orderId}`
-      this.$http.post(url).then((res) => {
-        this.isLoading = false
+      this.pay()
+      // this.isLoading = true
+      // const url = `${import.meta.env.VITE_APP_API}/api/${import.meta.env.VITE_APP_PATH}/pay/${this.orderId}`
+      // this.$http.post(url).then((res) => {
+      //   this.isLoading = false
+      //   if (res.data.success) {
+      //     this.getOrder()
+      //   }
+      // })
+    },
+    pay() {
+      const url = 'https://ecpay-v06q.onrender.com'
+      const orderData = {
+        product: '精油課程',
+        price: this.order.total.toString()
+      }
+      this.$http.post(url, orderData).then((res) => {
         if (res.data.success) {
-          this.getOrder()
+          this.receivedHTML = res.data.data
+          this.$nextTick(() => {
+            document.getElementById('_form_aiochk').submit()
+          })
         }
       })
     }
-    // pay() {
-    //   const url = 'https://ecpay-v06q.onrender.com'
-    //   const orderData = {
-    //     product: '精油課程',
-    //     price: this.order.total.toString()
-    //   }
-    //   this.$http.post(url, orderData).then((res) => {
-    //     if (res.data.success) {
-    //       this.receivedHTML = res.data.data
-    //       this.$nextTick(() => {
-    //         document.getElementById('_form_aiochk').submit()
-    //       })
-    //     }
-    //   })
-    // }
   },
   created() {
     this.orderId = this.$route.params.orderId
