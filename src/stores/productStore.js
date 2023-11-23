@@ -5,9 +5,8 @@ const status = statusStore()
 export default defineStore('productStore', {
   state: () => ({
     products: [],
-    pagination: {},
-    product: {},
-    category: []
+    // pagination: {},
+    product: {}
   }),
   actions: {
     getAllProducts() {
@@ -15,9 +14,6 @@ export default defineStore('productStore', {
       status.isLoading = true
       axios.get(api).then((res) => {
         this.products = res.data.products
-        const arry = this.products.map((item) => item.category)
-        const newSet = new Set(arry)
-        this.category = [...newSet]
         status.isLoading = false
       })
     },

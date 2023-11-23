@@ -24,12 +24,9 @@
       </nav>
     </div>
     <div class="col-lg-10 bg-light min-vh-100 shadow-md">
-      <nav class="p-3 bg-white d-flex justify-content-between align-items-center">
+      <nav class="p-3 bg-white d-flex justify-content-between align-items-center" style="--bs-breadcrumb-divider: '>'">
         <ol class="breadcrumb m-0">
-          <li class="breadcrumb-item">
-            {{ path }}
-            <i class="fas fa-angle-right"></i>
-          </li>
+          <li class="breadcrumb-item">後台管理</li>
           <li class="breadcrumb-item active">{{ page }}</li>
         </ol>
         <span class="ms-auto me-3" :class="status === '登入中' ? 'text-success' : 'text-danger'">
@@ -45,7 +42,10 @@
 export default {
   components: {},
   data() {
-    return {}
+    return {
+      status: '',
+      page: ''
+    }
   },
   methods: {
     logout() {
@@ -59,6 +59,11 @@ export default {
       })
     }
   },
+  watch: {
+    $route() {
+      this.page = this.$route.meta.title
+    }
+  },
   created() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
     this.$http.defaults.headers.common.Authorization = token
@@ -66,6 +71,9 @@ export default {
     this.$http.post(api).then((res) => {
       if (!res.data.success) {
         this.$router.push('/login')
+      } else {
+        this.status = res.data.message || '登入中'
+        this.page = this.$route.meta.title
       }
     })
   }

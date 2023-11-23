@@ -62,15 +62,24 @@ const router = createRouter({
       children: [
         {
           path: 'products',
-          component: () => import('@/views/admin/Products.vue')
+          component: () => import('@/views/admin/Products.vue'),
+          meta: {
+            title: '商品管理'
+          }
         },
         {
           path: 'coupons',
-          component: () => import('@/views/admin/Coupons.vue')
+          component: () => import('@/views/admin/Coupons.vue'),
+          meta: {
+            title: '優惠券管理'
+          }
         },
         {
           path: 'orders',
-          component: () => import('@/views/admin/Orders.vue')
+          component: () => import('@/views/admin/Orders.vue'),
+          meta: {
+            title: '訂單管理'
+          }
         }
       ]
     },
