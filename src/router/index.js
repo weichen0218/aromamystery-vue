@@ -90,14 +90,17 @@ const router = createRouter({
     }
   ]
 })
-// router.beforeEach((to, from, next) => {
-//   window.scrollTo(0, 0)
-//   next()
-// })
-router.afterEach(() => {
+router.beforeEach(() => {
   const lenis = inject('lenis')
   if (lenis === null) return
   lenis.stop()
+  window.scrollTo(0, 0)
   lenis.start()
 })
+// router.afterEach(() => {
+//   const lenis = inject('lenis')
+//   if (lenis === null) return
+//   lenis.stop()
+//   lenis.start()
+// })
 export default router

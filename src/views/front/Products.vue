@@ -5,15 +5,15 @@
     <div class="btn-group d-flex justify-content-center mb-4" role="group" aria-label="Basic radio toggle button group">
       <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" v-model="category" value="全部" />
       <label class="btn btn-outline-primary" for="btnradio1">全部</label>
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" v-model="category" value="初階" />
-      <label class="btn btn-outline-primary" for="btnradio2">初階</label>
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" v-model="category" value="中階" />
-      <label class="btn btn-outline-primary" for="btnradio3"> 中階</label>
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" v-model="category" value="進階" />
-      <label class="btn btn-outline-primary" for="btnradio4">進階</label>
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" v-model="category" value="精油" />
+      <label class="btn btn-outline-primary" for="btnradio2">精油</label>
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" v-model="category" value="瑜珈" />
+      <label class="btn btn-outline-primary" for="btnradio3">瑜珈</label>
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" v-model="category" value="心理學" />
+      <label class="btn btn-outline-primary" for="btnradio4">心理學</label>
     </div>
 
-    <div class="row g-4 pb-5">
+    <div class="row g-4 pb-5" id="pricecard">
       <price-card
         v-for="(product, index) in productList"
         :key="index"
@@ -41,6 +41,7 @@ import productStore from '@/stores/productStore.js'
 import statusStore from '@/stores/statusStore.js'
 import { mapState, mapActions } from 'pinia'
 import gsap from 'gsap'
+
 export default {
   components: {
     'price-card': PriceCard,
@@ -51,7 +52,8 @@ export default {
       category: '',
       pagination: {},
       productList: [],
-      selectedCategoryCollection: []
+      selectedCategoryCollection: [],
+      currentAnimation: null
     }
   },
   computed: {
@@ -75,6 +77,10 @@ export default {
         has_pre: defaultCurrentPage - 1 > 0,
         has_next: defaultCurrentPage < total_pages
       }
+      if (this.currentAnimation) {
+        this.currentAnimation.kill()
+      }
+      this.fadeIn()
     },
     sortProducts() {
       this.category = '全部'
@@ -82,10 +88,24 @@ export default {
   },
   methods: {
     getPageProducts(page) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
       this.productList = this.selectedCategoryCollection[page - 1]
       this.pagination.current_page = page
       this.pagination.has_pre = page - 1 > 0
       this.pagination.has_next = page < this.pagination.total_pages
+      if (this.currentAnimation) {
+        this.currentAnimation.kill()
+      }
+      this.fadeIn()
+    },
+    fadeIn() {
+      gsap.set('#pricecard', { opacity: 0, y: 100 })
+      this.currentAnimation = gsap.to('#pricecard', {
+        y: 0,
+        opacity: 1,
+        delay: 0.5,
+        duration: 1
+      })
     },
     ...mapActions(productStore, ['getAllProducts'])
   },

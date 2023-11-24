@@ -28,6 +28,7 @@ import Spinner from '@/components/Spinner.vue'
 import cartStore from '@/stores/cartStore.js'
 import statusStore from '@/stores/statusStore.js'
 import { mapState, mapActions } from 'pinia'
+
 export default {
   components: { Spinner },
   props: {

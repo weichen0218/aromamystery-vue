@@ -175,7 +175,8 @@ export default {
   },
   watch: {
     sortProducts() {
-      this.initialProducts = this.sortProducts
+      const popularCourse = this.sortProducts.filter((item) => item.title.includes('初階'))
+      this.initialProducts = popularCourse
     }
   },
   computed: {
