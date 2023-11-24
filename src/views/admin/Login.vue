@@ -69,7 +69,7 @@
 </template>
 <style>
 .left-box {
-  background-image: linear-gradient(to bottom, rgba(151, 118, 68, 0.35), rgba(0, 0, 0, 0.35)), url('src/assets/image/login_bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(151, 118, 68, 0.35), rgba(0, 0, 0, 0.35)), url('/image/login_bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
