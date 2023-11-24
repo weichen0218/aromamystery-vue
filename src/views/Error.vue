@@ -2,7 +2,7 @@
   <div class="container-fluid error">
     <div class="container min-vh-100 d-flex">
       <div class="row">
-        <img src="/image/2.svg" class="img-fluid col-md-8" alt="" />
+        <img src="/image/404.svg" class="img-fluid col-md-8" alt="" />
         <div class="hero-text-box align-self-center col-md-4">
           <h1 class="fw-bold text-primary">哎呀！</h1>
           <h2 class="fw-bold text-primary mb-5">這個頁面好像躲起來了！</h2>
